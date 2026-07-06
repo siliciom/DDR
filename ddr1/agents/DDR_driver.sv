@@ -1,299 +1,436 @@
+// =============================================================================
+//
+// Component Name : DDR_driver
+//
+// =============================================================================
+
 class DDR_driver extends uvm_driver #(DDR_seq_item); 
-	`uvm_component_utils(DDR_driver)
+  `uvm_component_utils(DDR_driver)
 
-	virtual DDR_interface vif;
-	DDR_seq_item seq;
-  	int cfg_cl =2;	
+  // ===========================================================================
+  // Virtual Interface and Class Properties
+  // ===========================================================================
+  virtual DDR_interface vif;
+  DDR_seq_item          seq;
 
-		
+  // State Tracking Variables
+  bit       prev_cmd_was_act = 0;
+  bit [1:0] prev_act_bank;
+  
+  typedef enum {ACTIVE, POWER_DOWN} ddr_state_e;
+  ddr_state_e state = ACTIVE;
 
-	//constructor
-  function new(string name = "DDR_driver",uvm_component parent);
-    super.new(name,parent);
+  // ===========================================================================
+  // Component Constructor
+  // ===========================================================================
+  function new(string name = "DDR_driver", uvm_component parent);
+    super.new(name, parent);
   endfunction
 
-	//build phase
+  // ===========================================================================
+  // Build Phase: Interface Retrieval & Configuration Display
+  // ===========================================================================
   function void build_phase(uvm_phase phase);
     super.build_phase(phase);
-	  
-	//get interface
-    if(!uvm_config_db #(virtual DDR_interface)::get(this,"","DDR_interface",vif))begin
-      `uvm_fatal("DRV","NO INTERFACE")
+    
+    // Display compilation data width configuration
+    `ifdef X4
+      `uvm_info("DRV_CFG", "COMPILED AS X4", UVM_NONE)
+    `elsif X8
+      `uvm_info("DRV_CFG", "COMPILED AS X8", UVM_NONE)
+    `elsif X16
+      `uvm_info("DRV_CFG", "COMPILED AS X16", UVM_NONE)
+    `else
+      `uvm_info("DRV_CFG", "NO WIDTH DEFINE FOUND", UVM_NONE)
+    `endif
+
+    `uvm_info("DRV_PARAMS", $sformatf("DATA_WIDTH=%0d COL_WIDTH=%0d ADDR_WIDTH=%0d", `DATA_WIDTH, `COL_WIDTH, `ADDR_WIDTH), UVM_NONE)
+
+    // Retrieve Virtual Interface from Configuration Database
+    if (!uvm_config_db #(virtual DDR_interface)::get(this, "", "DDR_interface", vif)) begin
+      `uvm_fatal("DRV_NO_VIF", "Virtual interface 'vif' not found in uvm_config_db")
     end
- 
   endfunction
- 
- 
-	//run phase
-	task run_phase(uvm_phase phase);
-   	 //idle
-	//	seq = DDR_seq_item::type_id::create("seq");
- 
-		vif.cs  <=1;
-      vif.ras <=0;
-      vif.cas <=0;
-      vif.we  <=0;
-      vif.ba  <=0;
-      vif.addr<=0;
-      vif.dq  <=0;
-      vif.dqs <=0;
-	  	vif.dm  <=0;
-	  	vif.cke <=0;
-		
-	//	ddr_init();
-		seq_item_port.get_next_item(seq);
-					ddr_init();
-      		drive_tx(seq);
-      		seq_item_port.item_done(); 
- 		 forever begin
-      		seq_item_port.get_next_item(seq);
-			//	seq.cfg_bl;
-				//	ddr_init();
-      		drive_tx(seq);
-      		seq_item_port.item_done(); 
-    		end
- 
+   
+  // ===========================================================================
+  // Run Phase: Core Driver Execution Loop
+  // ===========================================================================
+  task run_phase(uvm_phase phase);
+    // Safe initialization of physical signals
+    bus_init();
+
+    // Fetch primary item to complete memory initialization sequence
+    seq_item_port.get_next_item(seq);
+    ddr_init();
+    drive_tx(seq);
+    seq_item_port.item_done(); 
+
+    // Set stable starting state
+    state = ACTIVE;
+    vif.ddr_drv_cb_t.cke <= 1;
+
+    // Main Driver Loop running forever throughout simulation
+    forever begin
+      seq_item_port.get_next_item(seq);
+      drive_tx(seq);
+      seq_item_port.item_done(); 
+    end
   endtask
 
+  // ===========================================================================
+  // Protocol Tasks
+  // ===========================================================================
 
-  //task initilaization
+  // Task: Bus Initialization (Sets clean defaults)
+  task bus_init;
+    vif.ddr_drv_cb_t.ba          <= 0;
+    vif.ddr_drv_cb_t.addr        <= 0;
+    vif.ddr_drv_cb_t.dq_en       <= 1;
+    vif.ddr_drv_cb_t.dq_en_data  <= 1'bz;
+    vif.ddr_drv_cb_t.dqs_en      <= 1;
+    vif.ddr_drv_cb_t.dqs_en_data <= 1'bz;
+    vif.ddr_drv_cb_t.dm          <= 0;
+    vif.ddr_drv_cb_t.cke         <= 0;
+  endtask
+
+  // Task: DDR Memory Initialization JEDEC Sequence
   task ddr_init();
+    // CKE assert sequence
+    @(vif.ddr_drv_cb_t); vif.ddr_drv_cb_t.cke <= 0;
+    @(vif.ddr_drv_cb_t); vif.ddr_drv_cb_t.cke <= 1;
  
-		//cke
-		vif.cke <=0;
-		@(posedge vif.ck_t); 
-    	vif.cke <= 1;
- 
-		//NOP
-    	vif.cs  <= 0; vif.ras <= 1; vif.cas <= 1; vif.we  <= 1;
+    // NOP Command
+    vif.ddr_drv_cb_t.cs <= 0; vif.ddr_drv_cb_t.ras <= 1; vif.ddr_drv_cb_t.cas <= 1; vif.ddr_drv_cb_t.we <= 1;
+    @(vif.ddr_drv_cb_t);
 
-    	@(posedge vif.ck_t);
+    // Precharge All
+    vif.ddr_drv_cb_t.cs <= 0; vif.ddr_drv_cb_t.ras <= 0; vif.ddr_drv_cb_t.cas <= 1; vif.ddr_drv_cb_t.we <= 0;
+    vif.ddr_drv_cb_t.addr[10] <= 1;
+ 
+    repeat(`TRP) @(vif.ddr_drv_cb_t);
+    vif.ddr_drv_cb_t.addr[10] <= 0;
+ 
+    // EMRS Enable (Enable DLL)
+    vif.ddr_drv_cb_t.cs  <= 0; vif.ddr_drv_cb_t.ras <= 0; vif.ddr_drv_cb_t.cas <= 0; vif.ddr_drv_cb_t.we <= 0;
+    vif.ddr_drv_cb_t.ba  <= 2'b01;
+    vif.ddr_drv_cb_t.addr[0] <= 0;
+ 
+    repeat(`TMRD) @(vif.ddr_drv_cb_t);
 
- 		//Precharge all
-    	vif.cs  <= 0; vif.ras <= 0; vif.cas <= 1; vif.we  <= 0;
-    	vif.addr[10] <= 1;
+    // MRS (DLL Reset)
+    vif.ddr_drv_cb_t.cs  <= 0; vif.ddr_drv_cb_t.ras <= 0; vif.ddr_drv_cb_t.cas <= 0; vif.ddr_drv_cb_t.we <= 0;
+    vif.ddr_drv_cb_t.ba  <= 2'b00;
+    vif.ddr_drv_cb_t.addr[8] <= 1;
  
-		#`TRP
+    repeat(`TMRD) @(vif.ddr_drv_cb_t);
 
-    	vif.addr[10] <= 0;
- 
-   	//emrs enable  
-    	vif.cs  <= 0; vif.ras <= 0; vif.cas <= 0; vif.we  <= 0;
-    	vif.ba   <= 2'b01;
+    // Wait Clock Cycles for DLL Reset (Driving NOP)
+    repeat(`TDLL) begin
+      @(vif.ddr_drv_cb_t);
+      vif.ddr_drv_cb_t.cs <= 0; vif.ddr_drv_cb_t.ras <= 1; vif.ddr_drv_cb_t.cas <= 1; vif.ddr_drv_cb_t.we <= 1;
+    end
 
-		//Enable DLL
-    	vif.addr[0] <= 0;
+    // Precharge All
+    vif.ddr_drv_cb_t.cs <= 0; vif.ddr_drv_cb_t.ras <= 0; vif.ddr_drv_cb_t.cas <= 1; vif.ddr_drv_cb_t.we <= 0;
+    vif.ddr_drv_cb_t.addr[10] <= 1;
  
-		#`TMRD
- 
-   	// mrs--dll reset
-    	vif.cs  <= 0; vif.ras <= 0; vif.cas <= 0; vif.we  <= 0;
-    	vif.ba  <= 2'b00;
-    	vif.addr[8] <= 1;
- 
-		#`TMRD
-
-		//200 CLock cycle for DLL reset (`TDLL=200)
-		repeat(`TDLL) begin
-		  @(posedge vif.ck_t);
-		  //NOP
-		  vif.cs  <= 0; vif.ras <= 1; vif.cas <= 1; vif.we  <= 1;
- 
-    	end
-
-		//Precharge All
-      vif.cs  <= 0; vif.ras <= 0;vif.cas <= 1;vif.we  <= 0;
-      vif.addr[10] <= 1;
- 
-	 	#`TRP;
+    repeat(`TRP) @(vif.ddr_drv_cb_t);
  		
-		//2 Auto refreshes
-		// First Auto refresh
-      vif.cs  <= 0; vif.ras <= 0; vif.cas <= 0; vif.we  <= 1;  
-		#`TRFC;
+    // First Auto Refresh
+    vif.ddr_drv_cb_t.cs <= 0; vif.ddr_drv_cb_t.ras <= 0; vif.ddr_drv_cb_t.cas <= 0; vif.ddr_drv_cb_t.we <= 1;  
+    repeat(`TRFC) @(vif.ddr_drv_cb_t);
  
-		// Second Auto refresh
-      vif.cs  <= 0; vif.ras <= 0; vif.cas <= 0; vif.we  <= 1; 
-		#`TRFC;
+    // Second Auto Refresh
+    vif.ddr_drv_cb_t.cs <= 0; vif.ddr_drv_cb_t.ras <= 0; vif.ddr_drv_cb_t.cas <= 0; vif.ddr_drv_cb_t.we <= 1; 
+    repeat(`TRFC) @(vif.ddr_drv_cb_t);
+  endtask
  
-		//MRS task
-	//	if(seq.cmd== MRS)
-	//	begin
-	//			  $display("Inside mrs");
-		mrs(0);
-	//	end
+  // Task: Mode Register Set (MRS)
+  task mrs(bit dll_reset);
+    bit [13:0] mode_reg; bit [2:0]  bl_bits; bit [2:0]  cl_bits;
+
+    // Decode Configuration Burst Length
+    `uvm_info("DRV_MRS", $sformatf("Configuring Burst Length: %0d", seq.cfg_bl), UVM_LOW)
+    case (seq.cfg_bl)
+      2:       bl_bits = 3'b001;
+      4:       bl_bits = 3'b010;
+      8:       bl_bits = 3'b011;
+      default: begin
+        bl_bits = 3'b000;
+        `uvm_warning("DRV_MRS", "Invalid Burst Length configured!")
+      end
+    endcase
+
+    // Decode Configuration CAS Latency
+    `uvm_info("DRV_MRS", $sformatf("Configuring CAS Latency: %0d", seq.cfg_cl), UVM_LOW)
+    case (seq.cfg_cl)
+      2:       cl_bits = 3'b010;
+      3:       cl_bits = 3'b011;
+      default: begin
+        cl_bits = 3'b010; // Defaulting to 2
+        `uvm_warning("DRV_MRS", "Invalid CAS Latency! Defaulting to 2.")
+      end
+    endcase
  
-	endtask
+    // Assemble Mode Register Array Mapping
+    mode_reg        = 14'b0;
+    mode_reg[2:0]   = bl_bits;
+    mode_reg[3]     = seq.cfg_bt;
+    mode_reg[6:4]   = cl_bits;
+    mode_reg[8]     = dll_reset;
  
-
-	//Task MRS
-	task mrs(bit dll_reset);
-		bit[13:0]mode_reg;
-		bit[2:0]bl_bits;
-		bit[2:0]cl_bits;
-	//	bit[3:0] hh;
-
-	//	hh = seq.cfg_bl;
-		`uvm_info("DRVVV",$sformatf("%0d",seq.cfg_bl),UVM_LOW);
-			//Burst Length
-		case(seq.cfg_bl)
-	 		2:bl_bits = 3'b001;
-	 		4:bl_bits = 3'b010;
-	 		8:bl_bits = 3'b011;
-	 	default: begin
-	 		bl_bits = 3'b000;
-	 		`uvm_warning("mrs","invalid BL")
-	 	end
-		endcase
+    // Drive MRS Command Pins
+    vif.ddr_drv_cb_t.cs   <= 0; vif.ddr_drv_cb_t.ras <= 0; vif.ddr_drv_cb_t.cas <= 0; vif.ddr_drv_cb_t.we <= 0;
+    vif.ddr_drv_cb_t.ba   <= 2'b00;
+    vif.ddr_drv_cb_t.addr <= mode_reg;
  
-		//CAS Latency
-    	case(cfg_cl)
-			2:cl_bits = 3'b010;
-	 		3:cl_bits = 3'b011;
-	 		default: begin
-	 		cl_bits = 3'b010;
-	 		`uvm_warning("mrs","invalid CL,using 2")
-	 		end
-		endcase
- 
-   	mode_reg = 14'b0;
-   	mode_reg[2:0] = bl_bits;
-   	mode_reg[3] = seq.cfg_bt;
-   	mode_reg[6:4] = cl_bits;
-   	mode_reg[8] = dll_reset;
- 
-  		 	@(posedge vif.ck_t);
-			//MRS
-    		vif.cs  <= 0; vif.ras <= 0; vif.cas <= 0; vif.we  <= 0;
-	 		vif.ba   <= 2'b00;
-    		vif.addr <= mode_reg;
- 
-			#`TMRD;
- 
-			`uvm_info("MRS",$sformatf("BL=%0d CL=%0d BT=%0d DLL=%0d",seq.cfg_bl,cfg_cl,seq.cfg_bt,dll_reset),UVM_LOW)
-	endtask
- 
-	//NOP
-	task nop();
-  		vif.cs <=0; vif.ras <=1;  vif.cas <=1; vif.we <=1;
-	endtask
-
-	//Activate
-	task activate(bit[1:0]ba,bit[13:0]addr);
-    	vif.cs  <= 0; vif.ras <= 0; vif.cas <= 1; vif.we  <= 1;
-    	vif.ba  <= ba;
-   	vif.addr <= addr;
-	endtask
- 
-	//Write command
-	task write_cmnd(bit[1:0]ba,bit[9:0]addr);
-    	vif.cs  <= 0; vif.ras <= 1; vif.cas <= 0; vif.we  <= 0;
-    	vif.ba  <= ba;
-    	vif.addr<= addr;
-   endtask
-
-	//Read command
-	task read_cmnd(bit[1:0]ba,bit[9:0]addr); 
-    	vif.cs  <= 0; vif.ras <= 1; vif.cas <= 0; vif.we <= 1;
-    	vif.ba  <= ba;
-    	vif.addr <= addr;
-	endtask
-
-	//Precharge
-	task precharge(bit[1:0]ba,bit [9:0] addr);
-    	vif.cs  <= 0; vif.ras <= 0; vif.cas <= 1; vif.we <= 0;
-    	vif.ba  <= ba;
-    	vif.addr<= addr;
-	endtask
-
-	//Drive Task
-	task drive_tx(DDR_seq_item seq);
-  		bit [9:0] burst_addr;
-  		seq.auto_precharge = seq.addr[10];
-  		burst_addr = seq.addr[9:0];
-
-	//NOP
-	nop();
-  `uvm_info("DDR_DRV_NOP","Inside NOP command", UVM_LOW);
-
-	// Activate
-	if(seq.cmd == ACTIVATE) begin
-  		activate(seq.ba, seq.addr);
-  		`uvm_info("DDR_DRV_ACTV",$sformatf("BA = %d, ADDR = %d",seq.ba, seq.addr), UVM_LOW);
- 	end
-  		#`TRCD;
-
-	//Write 
-  if(seq.cmd == WRITE) begin
-    write_cmnd(seq.ba, burst_addr);
-    #`TDQSS;
-
-    for(int i=0; i<seq.cfg_bl; i++) begin
-				`uvm_info("DRVVV_WRITE",$sformatf("%0d",seq.cfg_bl),UVM_LOW);
-
-		fork
-			begin
-			//	#`TCK4;	
-				vif.dq <= seq.dq_burst[i];
-      		vif.dm <= seq.dm;
-      		burst_addr = seq.addr[9:0] + i;
-				vif.addr <= burst_addr;
-		 	end
- 
-			begin
-				#`TCK4;
-				vif.dqs <= ~vif.dqs;
-			end
-
-      `uvm_info("DDR_DRIVER",$sformatf("ADDR = %0d DATA[%0d] = %0d",burst_addr,i,seq.dq_burst[i]),UVM_LOW)
-		join
-		#`TCK4;
+    repeat(`TMRD) begin
+      @(vif.ddr_drv_cb_t);
+      nop();
     end
  
+    `uvm_info("DRV_MRS", $sformatf("MRS Complete: BL=%0d CL=%0d BT=%0d DLL_Reset=%0d",seq.cfg_bl, seq.cfg_cl, seq.cfg_bt, dll_reset), UVM_LOW)
+  endtask
 
-	 /*//Precharge
-	 if(seq.cmd==WR_PRECHARGE) begin
-    	if(seq.auto_precharge == 0) begin		
- 			 precharge(seq.ba,seq.addr);
-  			`uvm_info("DDR_DRV_PRE",$sformatf("BA = %d, ADDR = %d",seq.ba, seq.addr), UVM_LOW);
+  // Task: IDLE State Command (1xxx)	
+  task idle();
+    vif.ddr_drv_cb_t.cs <= 1; vif.ddr_drv_cb_t.ras <= 1'bx; vif.ddr_drv_cb_t.cas <= 1'bx; vif.ddr_drv_cb_t.we <= 1'bx;
+  endtask
+
+  // Task: NOP Command (0111)
+  task nop();
+    vif.ddr_drv_cb_t.cs <= 0; vif.ddr_drv_cb_t.ras <= 1; vif.ddr_drv_cb_t.cas <= 1; vif.ddr_drv_cb_t.we <= 1;
+  endtask
+
+  // Task: Activate Command (0011)
+  task activate(bit [1:0] ba, bit [13:0] addr);
+    vif.ddr_drv_cb_t.cs   <= 0; vif.ddr_drv_cb_t.ras <= 0; vif.ddr_drv_cb_t.cas <= 1; vif.ddr_drv_cb_t.we <= 1;
+    vif.ddr_drv_cb_t.ba   <= ba;
+    vif.ddr_drv_cb_t.addr <= addr;
+  endtask
  
-      #`TRP; 
-    	end
- 
-    else begin
-      #`TRP;
+  // Task: Write Command (0100)
+  task write_cmnd(bit [1:0] ba, bit [`COL_WIDTH-1:0] addr, bit auto_precharge);
+    vif.ddr_drv_cb_t.cs       <= 0; vif.ddr_drv_cb_t.ras <= 1; vif.ddr_drv_cb_t.cas <= 0; vif.ddr_drv_cb_t.we <= 0;
+    vif.ddr_drv_cb_t.ba       <= ba;
+    vif.ddr_drv_cb_t.addr     <= addr;
+    vif.ddr_drv_cb_t.addr[10] <= auto_precharge;
+  endtask
+
+  // Task: Read Command (0101)
+  task read_cmnd(bit [1:0] ba, bit [`COL_WIDTH-1:0] addr, bit auto_precharge); 
+    vif.ddr_drv_cb_t.cs        <= 0; vif.ddr_drv_cb_t.ras <= 1; vif.ddr_drv_cb_t.cas <= 0; vif.ddr_drv_cb_t.we <= 1;
+    vif.ddr_drv_cb_t.ba        <= ba;
+    vif.ddr_drv_cb_t.addr[9:0] <= addr;
+    vif.ddr_drv_cb_t.addr[10]  <= auto_precharge;
+  endtask
+
+  // Task: Burst Terminate Command (0110)
+  task burst_terminate();
+    vif.ddr_drv_cb_t.cs <= 0; vif.ddr_drv_cb_t.ras <= 1; vif.ddr_drv_cb_t.cas <= 1; vif.ddr_drv_cb_t.we <= 0;
+  endtask
+
+  // Task: Precharge Command (0010)
+  task precharge(bit [1:0] ba, bit [`COL_WIDTH-1:0] addr, bit precharge_all);
+    vif.ddr_drv_cb_t.cs       <= 0; vif.ddr_drv_cb_t.ras <= 0; vif.ddr_drv_cb_t.cas <= 1; vif.ddr_drv_cb_t.we <= 0;
+    vif.ddr_drv_cb_t.ba       <= ba;
+    vif.ddr_drv_cb_t.addr     <= addr;
+    vif.ddr_drv_cb_t.addr[10] <= precharge_all;
+  endtask
+
+  // Task: Power Down Processing
+  task power_down();
+    if (seq.cke == 0 && state != POWER_DOWN) begin
+      state = POWER_DOWN;
+      `uvm_info("DRV", "Entering Power-Down", UVM_LOW)
     end
-  	end*/
-  end
- 
-  //Read
-  	else if(seq.cmd == READ) begin
-    read_cmnd(seq.ba, burst_addr);
-
-	 //Auto precharge checking
-	 	if(seq.auto_precharge)
-				  vif.addr[10] <= 1;
-		else
-				  vif.addr[10] <= 1;
-
-    #`TCL;
-
-    `uvm_info("DDR_DRIVER","READ command issued",UVM_LOW)
-
-	 	//Precharge
-    	if(seq.auto_precharge) begin
-			`uvm_info("DDR_DRIVER","Auto Precharge Enabled",UVM_LOW)
-      	#`TRP;
-    	end
- 
-    else begin
-		precharge(seq.ba, seq.addr);
-      #`TRP;
+    else if (seq.cke == 1 && state == POWER_DOWN) begin
+      state = ACTIVE;
+      `uvm_info("DRV", "Exiting Power-Down", UVM_LOW)
     end
-  	 end
  
-endtask
+    // Only drive CKE (NO other signal disturbance allowed)
+    vif.ddr_drv_cb_t.cke <= seq.cke;
+ 
+    `uvm_info("DRV_FSM", $sformatf("CKE=%0d STATE=%s", seq.cke, (state == POWER_DOWN) ? "POWER_DOWN" : "ACTIVE"), UVM_LOW)
+  endtask
+
+  // ===========================================================================
+  // Transaction Processing Engine (Protocol Execution Case Breakdown)
+  // ===========================================================================
+  task drive_tx(DDR_seq_item seq);
+    bit [`COL_WIDTH-1:0] burst_addr;
+    burst_addr = seq.addr[`COL_WIDTH-1:0];
+
+    // --- Power Down Management ---
+    if(seq.do_power_down) begin
+      power_down();
+      `uvm_info("POWER_DOWN", "IN powerdown", UVM_LOW)
+      return;
+    end
+ 
+    // --- MRS Command Processing ---
+    else if (seq.cmd == MRS) begin 
+      `uvm_info("DRV_TX_MRS", "Executing MRS Init Task Sequence", UVM_LOW)
+      mrs(0);
+    end
+
+    // --- IDLE Command Processing ---
+    else if (seq.cmd == IDLE) begin
+      idle(); @(vif.ddr_drv_cb_t);
+      `uvm_info("DRV_TX_IDLE", "Idle State Maintained", UVM_LOW)
+    end
+	
+    // --- NOP Command Processing ---
+    else if (seq.cmd == NOP) begin
+      nop(); @(vif.ddr_drv_cb_t);
+      `uvm_info("DRV_TX_NOP", "NOP Protocol Driven", UVM_LOW)
+    end
+
+    // --- ACTIVATE Command Processing ---
+    else if (seq.cmd == ACTIVATE) begin
+      // Previous command was ACT -> enforce tRRD structural constraint
+      if (prev_cmd_was_act) begin
+        `uvm_info("DRV_TRRD", $sformatf("Waiting tRRD between ACT BA=%0d and BA=%0d", prev_act_bank, seq.ba), UVM_LOW)
+        repeat(`TRRD_DRV) begin
+          @(vif.ddr_drv_cb_t); nop();
+        end
+      end
+
+      activate(seq.ba, seq.addr);
+
+      prev_cmd_was_act = 1;
+      prev_act_bank    = seq.ba;
+
+      `uvm_info("DRV_ACT", $sformatf("ACT BA=%0d ROW=%0d", seq.ba, seq.addr), UVM_LOW)
+    end
+
+    // --- WRITE Command Processing ---
+    else if (seq.cmd == WRITE) begin
+      if(prev_cmd_was_act) begin
+        repeat(`TRCD_DRV) begin
+          @(vif.ddr_drv_cb_t); nop();
+        end
+      end
+
+      write_cmnd(seq.ba, burst_addr, seq.auto_precharge);
+      vif.ddr_drv_cb_t.dqs_en_data <= 1'b0;
+		
+      `uvm_info("DRV_TX_WRITE", $sformatf("WRITE Issued -> BA=%0d COL=%0d AP=%0d", seq.ba, burst_addr, seq.auto_precharge), UVM_LOW)
+	
+      repeat(`TDQSS_DRV) @(vif.ddr_drv_cb_c);
+      nop();
+
+      vif.ddr_drv_cb_t.dq_en  <= 1;
+      vif.ddr_drv_cb_t.dqs_en <= 1;
+	 
+      // Synchronous Burst Driving (Double Data Rate DDR Loop running POS and NEG)
+      for (int i = 0; i < seq.cfg_bl; i += 2) begin
+        int dm_even, dm_odd;
+ 
+        case (seq.dm_mode)
+          0:       begin dm_even = 0; dm_odd = 0; end
+          1:       begin dm_even = 1; dm_odd = 1; end
+          2:       begin dm_even = (i % 2);
+                         dm_odd  = ((i + 1) % 2);
+          end
+          default: begin dm_even = 0; dm_odd = 0; end
+        endcase
+ 
+        // POS Edge Data Generation
+        @(vif.ddr_drv_cb_t);
+        vif.ddr_drv_cb_t.dq_en_data  <= seq.dq_burst[i];
+        vif.ddr_drv_cb_t.dm          <= dm_even;
+        seq.dm_array.push_back(dm_even);
+        vif.ddr_drv_cb_t.dqs_en_data <= 1;
+        `uvm_info("DRV_WRITE_POS", $sformatf("POS Data Driven: ADDR=%0d DATA[%0d]=%0d", burst_addr, i, seq.dq_burst[i]), UVM_LOW) 
+
+        // NEG Edge Data Generation
+        @(vif.ddr_drv_cb_c);
+        vif.ddr_drv_cb_c.dq_en_data  <= seq.dq_burst[i+1];
+        vif.ddr_drv_cb_c.dm          <= dm_odd;
+        seq.dm_array.push_back(dm_odd);
+        vif.ddr_drv_cb_c.dqs_en_data <= 0;
+        `uvm_info("DRV_WRITE_NEG", $sformatf("NEG Data Driven: ADDR=%0d DATA[%0d]=%0d", burst_addr, i+1, seq.dq_burst[i+1]), UVM_LOW) 
+      end 
+			
+      // Turn off physical bus drivers smoothly without creating bus contention
+      fork
+        begin
+          @(vif.ddr_drv_cb_t); 
+          vif.ddr_drv_cb_t.dq_en <= 0;
+          vif.ddr_drv_cb_t.dm    <= 0;
+        end
+        begin
+          @(vif.ddr_drv_cb_c); 
+          vif.ddr_drv_cb_t.dqs_en      <= 0;
+          vif.ddr_drv_cb_t.dqs_en_data <= 1'bz;
+          vif.ddr_drv_cb_t.dq_en_data  <= 1'bz;
+        end
+      join
+
+      // Handle Post-Write Protocol Wait Parameters
+      if (seq.auto_precharge) begin
+        `uvm_info("DRV_WRITE_AP", "Auto-Precharge active. Waiting tWR + tRP.", UVM_LOW)
+        repeat(`TWR_DRV + `TRP_DRV) begin
+          @(vif.ddr_drv_cb_t); nop();
+        end			  
+      end else begin
+        `uvm_info("DRV_WRITE_NO_AP", "Standard Write. Waiting tWTR constraint.", UVM_LOW)
+        repeat(`TWTR_DRV) @(vif.ddr_drv_cb_t);
+      end
+    end   
+
+    // --- READ Command Processing ---
+    else if (seq.cmd == READ) begin
+      if(prev_cmd_was_act) begin
+        repeat(`TRCD_DRV) begin
+          @(vif.ddr_drv_cb_t); nop();
+        end
+      end
+
+      read_cmnd(seq.ba, seq.addr, seq.auto_precharge);
+      @(vif.ddr_drv_cb_t); nop();
+      `uvm_info("DRV_TX_READ", $sformatf("READ Issued -> BA=%0d ADDR=%0d AP=%0d", seq.ba, seq.addr, seq.auto_precharge), UVM_LOW)
+  
+      // CAS Latency stall cycles
+      repeat(`TCL_DRV) begin
+        @(vif.ddr_drv_cb_t); nop();
+      end
+	
+      if (!seq.bst_mode) begin	 
+        repeat(seq.cfg_bl) begin  
+          @(vif.ddr_drv_cb_t); nop();
+        end
+      end
+
+      if (seq.auto_precharge) begin
+        `uvm_info("DRV_READ_AP", "Auto-Precharge operating internally. Waiting tRP.", UVM_LOW)
+        repeat(`TRP_DRV) begin
+          @(vif.ddr_drv_cb_t); nop();
+        end
+      end
+    end 
+
+    // --- PRECHARGE Command Processing ---
+    else if (seq.cmd == PRECHARGE) begin
+      precharge(seq.ba, seq.addr, seq.precharge_all);
+      if(seq.precharge_all)
+        `uvm_info("DRV_PREALL", "PRECHRGE ALL CMD ", UVM_LOW)
+      else
+        `uvm_info("DRV_PRE", $sformatf("PRECHRGE BANK = %0d", seq.ba), UVM_LOW)
+
+      repeat(`TRP_DRV) begin
+        @(vif.ddr_drv_cb_t); nop();
+      end
+    end
+
+    // --- BURST TERMINATE (BST) Command Processing ---
+    else if (seq.cmd == BST) begin
+      burst_terminate();
+      `uvm_info("DRV_TX_BST", "BURST TERMINATE Command Driven", UVM_LOW)
+      @(vif.ddr_drv_cb_t); nop();
+    end
+  endtask
 
 endclass
- 
- 
