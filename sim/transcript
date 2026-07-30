@@ -1,0 +1,32 @@
+# set testname ddr_wr_ap_intlv_bl4_100_test
+# ddr_wr_ap_intlv_bl4_100_test
+#  do run.do
+# QuestaSim-64 vlog 2025.2_1 Compiler 2025.06 Jun 25 2025
+# Start time: 16:14:02 on Jul 30,2026
+# vlog -work work -sv ../Design/Basic_DDR_RTL/ddr_pkg.sv ../Design/Basic_DDR_RTL/ddr_command_decoder.sv ../Design/Basic_DDR_RTL/ddr_device_with_dqs.sv ../Design/Basic_DDR_RTL/ddr_mode_register.sv ../config/DDR_package.sv ../top/DDR_interface.sv ../top/DDR_top.sv -l ./results/ddr_wr_ap_intlv_bl4_100_test/comp.log 
+# ** Note: (vlog-220) 'modelsim.ini' is used as the ini file.
+# -- Compiling package ddr_pkg
+# -- Compiling package ddr_command_decoder_sv_unit
+# -- Importing package ddr_pkg
+# -- Compiling module ddr_command_decoder
+# -- Compiling module ddr_device
+# -- Compiling module ddr_mode_register
+# -- Compiling package DDR_pkg
+# -- Importing package mtiUvm.uvm_pkg (uvm-1.1d Built-in)
+# ** Note: (vlog-2286) ../config/DDR_package.sv(4): Using implicit +incdir+C:/questasim64_2025.2_1/uvm-1.1d/../verilog_src/uvm-1.1d/src from import uvm_pkg
+# ** Warning: ** while parsing file included at ../config/DDR_package.sv(8)
+# ** at ../config/DDR_timingpar.sv(6): (vlog-13543) `timescale directive not allowed inside design elements.
+# -- Compiling package DDR_interface_sv_unit
+# -- Compiling interface DDR_interface
+# -- Compiling interface DDR_interface
+# ** Warning: ** while parsing file included at ../top/DDR_top.sv(9)
+# ** at ../top/DDR_interface.sv(12): (vlog-2275) Existing interface 'DDR_interface' at line 12 will be overwritten.
+# -- Compiling package DDR_top_sv_unit
+# -- Compiling interface DDR_interface
+# -- Compiling module DDR_top
+# -- Importing package DDR_pkg
+# 
+# Top level modules:
+# 	DDR_top
+# End time: 16:14:04 on Jul 30,2026, Elapsed time: 0:00:02
+# Errors: 0, Warnings: 2

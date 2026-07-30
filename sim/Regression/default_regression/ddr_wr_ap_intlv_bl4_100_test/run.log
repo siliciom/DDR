@@ -1,0 +1,5 @@
+# ** Note: (vsim-220) 'C:/questasim64_2025.2_1/win64/../modelsim.ini' is used as the ini file.
+# vsim -c -debugDB -voptargs="+acc" work.DDR_top "+UVM_TESTNAME=ddr_wr_ap_intlv_bl4_100_test" -l ./Regression/default_regression/ddr_wr_ap_intlv_bl4_100_test/run.log -sv_seed 957757 -do "run -all; quit -f" 
+# Start time: 16:09:10 on Jul 30,2026
+# ** Note: (vsim-8009) Loading existing optimized design _opt
+# ** Error: Failure to obtain a Verilog simulation license. Unable to checkout any of these license features: 'qhsimvl' or 'msimhdlsim'.

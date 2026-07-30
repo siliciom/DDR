@@ -1,0 +1,695 @@
+# ** Note: (vsim-220) 'C:/questasim64_2025.2_1/win64/../modelsim.ini' is used as the ini file.
+# vsim -c -debugDB -voptargs="+acc" work.DDR_top "+UVM_TESTNAME=ddr_mul_wr_seq_bl4_100_X16_test" -l ./Regression/default_regression/ddr_mul_wr_seq_bl4_100_X16_test/run.log -sv_seed 839735 -do "run -all; quit -f" 
+# Start time: 16:04:15 on Jul 30,2026
+# ** Note: (vsim-3813) Design is being optimized due to module recompilation...
+# ** Note: (vsim-8611) Generating debug db.
+# ** Warning: (vopt-10587) Some optimizations are turned off because the +acc switch is in effect. This will cause your simulation to run slowly. Please use -access/-debug to maintain needed visibility. The +acc switch would be deprecated in a future release.
+# ** Note: (vopt-220) 'C:/questasim64_2025.2_1/win64/../modelsim.ini' is used as the ini file.
+# ** Note: (vsim-12126) Error and warning message counts have been restored: Errors=0, Warnings=1.
+# //  Questa Sim-64
+# //  Version 2025.2_1 win64 Jun 25 2025
+# //
+# // Unpublished work. Copyright 2025 Siemens
+# //
+# // This material contains trade secrets or otherwise confidential information
+# // owned by Siemens Industry Software Inc. or its affiliates (collectively,
+# // "SISW"), or its licensors. Access to and use of this information is strictly
+# // limited as set forth in the Customer's applicable agreements with SISW.
+# //
+# // This material may not be copied, distributed, or otherwise disclosed outside
+# // of the Customer's facilities without the express written permission of SISW,
+# // and may not be used in any way not expressly authorized by SISW.
+# //
+# Loading sv_std.std
+# Loading work.DDR_interface(fast)
+# Loading mtiUvm.uvm_pkg(fast)
+# Loading work.DDR_pkg(fast)
+# Loading work.ddr_pkg(fast)
+# Loading work.ddr_pkg_sv_unit(fast)
+# Loading mtiUvm.questa_uvm_pkg(fast)
+# Loading work.DDR_top(fast)
+# Loading work.DDR_interface(fast__2)
+# Loading work.ddr_device(fast)
+# Loading work.ddr_command_decoder(fast)
+# Loading work.ddr_mode_register(fast)
+# Loading C:/questasim64_2025.2_1/uvm-1.1d\win64\uvm_dpi.dll
+# ** Note: (vsim-8900) Creating design debug database vsim.dbg.
+# run -all
+# ----------------------------------------------------------------
+# UVM-1.1d
+# (C) 2007-2013 Mentor Graphics Corporation
+# (C) 2007-2013 Cadence Design Systems, Inc.
+# (C) 2006-2013 Synopsys, Inc.
+# (C) 2011-2013 Cypress Semiconductor Corp.
+# ----------------------------------------------------------------
+# 
+#   ***********       IMPORTANT RELEASE NOTES         ************
+# 
+#   You are using a version of the UVM library that has been compiled
+#   with `UVM_NO_DEPRECATED undefined.
+#   See http://www.eda.org/svdb/view.php?id=3313 for more details.
+# 
+#   You are using a version of the UVM library that has been compiled
+#   with `UVM_OBJECT_MUST_HAVE_CONSTRUCTOR undefined.
+#   See http://www.eda.org/svdb/view.php?id=3770 for more details.
+# 
+#       (Specify +UVM_NO_RELNOTES to turn off this notice)
+# 
+# UVM_INFO verilog_src/questa_uvm_pkg-1.2/src/questa_uvm_pkg.sv(277) @ 0: reporter [Questa UVM] QUESTA_UVM-1.2.3
+# UVM_INFO verilog_src/questa_uvm_pkg-1.2/src/questa_uvm_pkg.sv(278) @ 0: reporter [Questa UVM]  questa_uvm::init(+struct)
+# UVM_INFO @ 0: reporter [RNTST] Running test ddr_mul_wr_seq_bl4_100_X16_test...
+# DDR MODE DEFINED
+# MACRO DATA_WIDTH = 16
+# DUT data_width   = 16
+# 
+# === DDR CONFIGURATION ===
+# DATA_WIDTH = 16
+# COL_WIDTH  = 10
+# ADDR_WIDTH = 14
+# ==========================
+# 
+# UVM_INFO ../agents/DDR_driver.sv(44) @ 0: uvm_test_top.envh.agt.drvh [DRV_CFG] NO WIDTH DEFINE FOUND
+# UVM_INFO ../agents/DDR_driver.sv(47) @ 0: uvm_test_top.envh.agt.drvh [DRV_PARAMS] DATA_WIDTH=16 COL_WIDTH=10 ADDR_WIDTH=14
+# UVM_INFO @ 0: reporter [UVMTOP] UVM testbench topology:
+# -----------------------------------------------------------------------
+# Name                       Type                             Size  Value
+# -----------------------------------------------------------------------
+# uvm_test_top               ddr_mul_wr_seq_bl4_100_X16_test  -     @471 
+#   envh                     DDR_env                          -     @481 
+#     agt                    DDR_agent                        -     @488 
+#       drvh                 DDR_driver                       -     @557 
+#         rsp_port           uvm_analysis_port                -     @572 
+#         seq_item_port      uvm_seq_item_pull_port           -     @564 
+#       monh                 DDR_monitor                      -     @534 
+#         mon_ap_read        uvm_analysis_port                -     @549 
+#         mon_ap_write       uvm_analysis_port                -     @541 
+#       seqh                 DDR_sequencer                    -     @580 
+#         rsp_export         uvm_analysis_export              -     @587 
+#         seq_item_export    uvm_seq_item_pull_imp            -     @681 
+#         arbitration_queue  array                            0     -    
+#         lock_queue         array                            0     -    
+#         num_last_reqs      integral                         32    'd1  
+#         num_last_rsps      integral                         32    'd1  
+#     cov                    DDR_cov                          -     @518 
+#       analysis_imp         uvm_analysis_imp                 -     @525 
+#     scrb                   DDR_scoreboard                   -     @495 
+#       sb_port_r            uvm_analysis_imp_read_sb         -     @510 
+#       sb_port_w            uvm_analysis_imp_write_sb        -     @502 
+# -----------------------------------------------------------------------
+# 
+# UVM_INFO ../sequences/ddr_mul_wr_seq_bl4_100_X16_seq.sv(48) @ 0: uvm_test_top.envh.agt.seqh@@wr_mul_seqh [SEQ_START] Multiple write and read with randomize values
+# UVM_INFO ../env/ddr_subscriber.sv(126) @ 35000: uvm_test_top.envh.cov [COV] DM = 0
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 35000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [0] DQ Value : x
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 35000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [1] DQ Value : x
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 35000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [2] DQ Value : x
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 35000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [3] DQ Value : x
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 35000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [4] DQ Value : x
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 35000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [5] DQ Value : x
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 35000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [6] DQ Value : x
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 35000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [7] DQ Value : x
+# UVM_INFO ../env/DDR_scoreboard.sv(163) @ 35000: uvm_test_top.envh.scrb [SCB_PREALL] PRECHARGE ALL BANKS
+# UVM_INFO ../agents/DDR_monitor.sv(319) @ 35000: uvm_test_top.envh.agt.monh [MON_PRECHARGE] precharge issued curr_bank=0 
+# UVM_INFO ../env/ddr_subscriber.sv(126) @ 45000: uvm_test_top.envh.cov [COV] DM = 0
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 45000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [0] DQ Value : x
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 45000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [1] DQ Value : x
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 45000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [2] DQ Value : x
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 45000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [3] DQ Value : x
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 45000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [4] DQ Value : x
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 45000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [5] DQ Value : x
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 45000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [6] DQ Value : x
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 45000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [7] DQ Value : x
+# UVM_INFO ../env/DDR_scoreboard.sv(163) @ 45000: uvm_test_top.envh.scrb [SCB_PREALL] PRECHARGE ALL BANKS
+# UVM_INFO ../agents/DDR_monitor.sv(319) @ 45000: uvm_test_top.envh.agt.monh [MON_PRECHARGE] precharge issued curr_bank=0 
+# UVM_INFO ../top/DDR_interface.sv(202) @ 45000: reporter [PRE_AR] PRE to AR assertion is passed
+# CFG BL IN RTL 0
+# UVM_INFO ../top/DDR_interface.sv(159) @ 65000: reporter [EMRS_MRS] EMRS to MRS assertion is passed
+# UVM_INFO ../top/DDR_interface.sv(229) @ 65000: reporter [MRS_ACT] MRS to ACT assertion passed
+# CFG BL IN RTL 0
+# UVM_INFO ../agents/DDR_monitor.sv(106) @ 75000: uvm_test_top.envh.agt.monh [TMRD_CHECK] tmrd_cnt=-1
+# CFG BL IN RTL 0
+# UVM_INFO ../agents/DDR_monitor.sv(135) @ 85000: uvm_test_top.envh.agt.monh [MON_MRS] BL=2 CL=2 BT=0 DLL=1
+# UVM_INFO ../env/ddr_subscriber.sv(126) @ 85000: uvm_test_top.envh.cov [COV] DM = 0
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 85000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [0] DQ Value : x
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 85000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [1] DQ Value : x
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 85000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [2] DQ Value : x
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 85000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [3] DQ Value : x
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 85000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [4] DQ Value : x
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 85000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [5] DQ Value : x
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 85000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [6] DQ Value : x
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 85000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [7] DQ Value : x
+# UVM_INFO ../env/DDR_scoreboard.sv(116) @ 85000: uvm_test_top.envh.scrb [SCB_MRS] BL=2 CL=2 BT= SEQUENTIAL
+# CFG BL IN RTL 0
+# UVM_INFO ../agents/DDR_monitor.sv(106) @ 95000: uvm_test_top.envh.agt.monh [TMRD_CHECK] tmrd_cnt=2
+# CFG BL IN RTL 0
+# UVM_INFO ../agents/DDR_monitor.sv(135) @ 105000: uvm_test_top.envh.agt.monh [MON_MRS] BL=2 CL=2 BT=0 DLL=1
+# UVM_INFO ../env/ddr_subscriber.sv(126) @ 105000: uvm_test_top.envh.cov [COV] DM = 0
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 105000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [0] DQ Value : x
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 105000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [1] DQ Value : x
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 105000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [2] DQ Value : x
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 105000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [3] DQ Value : x
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 105000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [4] DQ Value : x
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 105000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [5] DQ Value : x
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 105000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [6] DQ Value : x
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 105000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [7] DQ Value : x
+# UVM_INFO ../env/DDR_scoreboard.sv(116) @ 105000: uvm_test_top.envh.scrb [SCB_MRS] BL=2 CL=2 BT= SEQUENTIAL
+# UVM_INFO ../top/DDR_interface.sv(189) @ 2065000: reporter [MRS_PRE] MRS to PRE assertion is passed
+# UVM_INFO ../env/ddr_subscriber.sv(126) @ 2095000: uvm_test_top.envh.cov [COV] DM = 0
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 2095000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [0] DQ Value : x
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 2095000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [1] DQ Value : x
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 2095000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [2] DQ Value : x
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 2095000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [3] DQ Value : x
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 2095000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [4] DQ Value : x
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 2095000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [5] DQ Value : x
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 2095000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [6] DQ Value : x
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 2095000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [7] DQ Value : x
+# UVM_INFO ../env/DDR_scoreboard.sv(163) @ 2095000: uvm_test_top.envh.scrb [SCB_PREALL] PRECHARGE ALL BANKS
+# UVM_INFO ../agents/DDR_monitor.sv(319) @ 2095000: uvm_test_top.envh.agt.monh [MON_PRECHARGE] precharge issued curr_bank=0 
+# UVM_INFO ../env/ddr_subscriber.sv(126) @ 2105000: uvm_test_top.envh.cov [COV] DM = 0
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 2105000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [0] DQ Value : x
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 2105000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [1] DQ Value : x
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 2105000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [2] DQ Value : x
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 2105000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [3] DQ Value : x
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 2105000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [4] DQ Value : x
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 2105000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [5] DQ Value : x
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 2105000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [6] DQ Value : x
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 2105000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [7] DQ Value : x
+# UVM_INFO ../env/DDR_scoreboard.sv(163) @ 2105000: uvm_test_top.envh.scrb [SCB_PREALL] PRECHARGE ALL BANKS
+# UVM_INFO ../agents/DDR_monitor.sv(319) @ 2105000: uvm_test_top.envh.agt.monh [MON_PRECHARGE] precharge issued curr_bank=0 
+# UVM_INFO ../top/DDR_interface.sv(202) @ 2105000: reporter [PRE_AR] PRE to AR assertion is passed
+# UVM_INFO ../top/DDR_interface.sv(242) @ 2185000: reporter [AR_AR] AR-AR assertion is passed
+# UVM_INFO ../top/DDR_interface.sv(308) @ 2185000: reporter [ar_act] ar to act assertion is passed
+# UVM_INFO ../top/DDR_interface.sv(215) @ 2185000: reporter [AR_MRS] AR to MRS assertion is passed
+# UVM_INFO ../agents/DDR_driver.sv(274) @ 2265000: uvm_test_top.envh.agt.drvh [DRV_TX_MRS] Executing MRS Init Task Sequence
+# UVM_INFO ../agents/DDR_driver.sv(153) @ 2265000: uvm_test_top.envh.agt.drvh [DRV_MRS] Configuring Burst Length: 4
+# UVM_INFO ../agents/DDR_driver.sv(165) @ 2265000: uvm_test_top.envh.agt.drvh [DRV_MRS] Configuring CAS Latency: 2
+# UVM_INFO ../agents/DDR_monitor.sv(106) @ 2275000: uvm_test_top.envh.agt.monh [TMRD_CHECK] tmrd_cnt=218
+# CFG BL IN RTL 10
+# UVM_INFO ../agents/DDR_driver.sv(192) @ 2285000: uvm_test_top.envh.agt.drvh [DRV_MRS] MRS Complete: BL=4 CL=2 BT=0 DLL_Reset=0
+# UVM_INFO ../agents/DDR_monitor.sv(135) @ 2285000: uvm_test_top.envh.agt.monh [MON_MRS] BL=4 CL=2 BT=0 DLL=0
+# UVM_INFO ../env/ddr_subscriber.sv(126) @ 2285000: uvm_test_top.envh.cov [COV] DM = 0
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 2285000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [0] DQ Value : x
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 2285000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [1] DQ Value : x
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 2285000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [2] DQ Value : x
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 2285000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [3] DQ Value : x
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 2285000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [4] DQ Value : x
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 2285000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [5] DQ Value : x
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 2285000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [6] DQ Value : x
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 2285000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [7] DQ Value : x
+# UVM_INFO ../env/DDR_scoreboard.sv(116) @ 2285000: uvm_test_top.envh.scrb [SCB_MRS] BL=4 CL=2 BT= SEQUENTIAL
+# UVM_INFO ../sequences/ddr_mul_wr_seq_bl4_100_X16_seq.sv(56) @ 2285000: uvm_test_top.envh.agt.seqh@@wr_mul_seqh [SEQ_MRS] MRS Configured: BL=4 CL=2
+# UVM_INFO ../top/DDR_interface.sv(229) @ 2285000: reporter [MRS_ACT] MRS to ACT assertion passed
+# UVM_INFO ../agents/DDR_driver.sv(281) @ 2295000: uvm_test_top.envh.agt.drvh [DRV_TX_IDLE] Idle State Maintained
+# UVM_INFO ../agents/DDR_driver.sv(305) @ 2295000: uvm_test_top.envh.agt.drvh [DRV_ACT] ACT BA=2 ROW=12378
+# UVM_INFO ../sequences/ddr_mul_wr_seq_bl4_100_X16_seq.sv(76) @ 2295000: uvm_test_top.envh.agt.seqh@@wr_mul_seqh [SEQ_ACT] === BANK ACTIVATED === BA=2 ROW=12378
+# UVM_INFO ../sequences/ddr_mul_wr_seq_bl4_100_X16_seq.sv(79) @ 2295000: uvm_test_top.envh.agt.seqh@@wr_mul_seqh [SEQ_WRITE] Starting 2 Randomized Writes
+#              2300000**************************INSIDE ACT RTL  =2
+#              2305000**************************INSIDE ACT RTL  =2
+# UVM_INFO ../env/ddr_subscriber.sv(126) @ 2305000: uvm_test_top.envh.cov [COV] DM = 0
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 2305000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [0] DQ Value : x
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 2305000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [1] DQ Value : x
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 2305000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [2] DQ Value : x
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 2305000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [3] DQ Value : x
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 2305000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [4] DQ Value : x
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 2305000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [5] DQ Value : x
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 2305000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [6] DQ Value : x
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 2305000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [7] DQ Value : x
+# UVM_INFO ../env/DDR_scoreboard.sv(122) @ 2305000: uvm_test_top.envh.scrb [SCB_ACT] ACTIVATE BA=2 ROW=12378
+# UVM_INFO ../agents/DDR_monitor.sv(173) @ 2305000: uvm_test_top.envh.agt.monh [MON_ACTIVATE] BA=2 ADDR=12378
+# UVM_INFO ../agents/DDR_driver.sv(319) @ 2315000: uvm_test_top.envh.agt.drvh [DRV_TX_WRITE] WRITE Issued -> BA=2 COL=768 AP=0
+# UVM_INFO ../top/DDR_interface.sv(256) @ 2315000: reporter [act_wr] act to wr assertion is passed
+#              2320000**************************INSIDE WRT RTL BA=2
+#              2325000**************************INSIDE WRT RTL BA=2
+# UVM_INFO ../agents/DDR_driver.sv(346) @ 2325000: uvm_test_top.envh.agt.drvh [DRV_WRITE_POS] POS Data Driven: ADDR=768 DATA[0]=40387
+# UVM_INFO ../agents/DDR_monitor.sv(195) @ 2325000: uvm_test_top.envh.agt.monh [MON_WRITE] WRITE BA=2 ADDR=768 AUTO_PRECHARGE=0
+# UVM_INFO ../top/DDR_interface.sv(295) @ 2325000: reporter [wt_rd] write to read assertion is passed
+# UVM_INFO ../top/DDR_interface.sv(269) @ 2325000: reporter [wr_data] wr to data assertion is passed
+#              2330000TWR COUNT FROM DDR DEVICE DQS FROM FOR LOOP RTL 2
+#              2330000TWR COUNT FROM DDR DEVICE DQS FROM FOR LOOP RTL AFTER DECREM 1
+# UVM_INFO ../agents/DDR_driver.sv(354) @ 2330000: uvm_test_top.envh.agt.drvh [DRV_WRITE_NEG] NEG Data Driven: ADDR=768 DATA[1]=25819
+# UVM_INFO ../agents/DDR_monitor.sv(218) @ 2330000: uvm_test_top.envh.agt.monh [MON_write_DATA] Stored Data = 40387
+#              2335000TWR COUNT FROM DDR DEVICE DQS FROM FOR LOOP RTL 1
+#              2335000TWR COUNT FROM DDR DEVICE DQS FROM FOR LOOP RTL AFTER DECREM 0
+# UVM_INFO ../agents/DDR_driver.sv(346) @ 2335000: uvm_test_top.envh.agt.drvh [DRV_WRITE_POS] POS Data Driven: ADDR=768 DATA[2]=45207
+# UVM_INFO ../agents/DDR_monitor.sv(218) @ 2335000: uvm_test_top.envh.agt.monh [MON_write_DATA] Stored Data = 25819
+# UVM_INFO ../agents/DDR_driver.sv(354) @ 2340000: uvm_test_top.envh.agt.drvh [DRV_WRITE_NEG] NEG Data Driven: ADDR=768 DATA[3]=4204
+# UVM_INFO ../agents/DDR_monitor.sv(218) @ 2340000: uvm_test_top.envh.agt.monh [MON_write_DATA] Stored Data = 45207
+# UVM_INFO ../agents/DDR_monitor.sv(218) @ 2345000: uvm_test_top.envh.agt.monh [MON_write_DATA] Stored Data = 4204
+# UVM_INFO ../env/ddr_subscriber.sv(126) @ 2345000: uvm_test_top.envh.cov [COV] DM = 0
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 2345000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [0] DQ Value : 40387
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 2345000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [1] DQ Value : 25819
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 2345000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [2] DQ Value : 45207
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 2345000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [3] DQ Value : 4204
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 2345000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [4] DQ Value : x
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 2345000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [5] DQ Value : x
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 2345000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [6] DQ Value : x
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 2345000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [7] DQ Value : x
+# UVM_INFO ../env/DDR_scoreboard.sv(144) @ 2345000: uvm_test_top.envh.scrb [SCB_WRITE] WRITE BA=2 ROW=12378 COL=768 DATA=40387
+# UVM_INFO ../env/DDR_scoreboard.sv(144) @ 2345000: uvm_test_top.envh.scrb [SCB_WRITE] WRITE BA=2 ROW=12378 COL=769 DATA=25819
+# UVM_INFO ../env/DDR_scoreboard.sv(144) @ 2345000: uvm_test_top.envh.scrb [SCB_WRITE] WRITE BA=2 ROW=12378 COL=770 DATA=45207
+# UVM_INFO ../env/DDR_scoreboard.sv(144) @ 2345000: uvm_test_top.envh.scrb [SCB_WRITE] WRITE BA=2 ROW=12378 COL=771 DATA=4204
+#              2350000TWR COUNT FROM DDR DEVICE DQS FROM FOR LOOP RTL 2
+#              2350000TWR COUNT FROM DDR DEVICE DQS FROM FOR LOOP RTL AFTER DECREM 1
+# UVM_INFO ../agents/DDR_driver.sv(379) @ 2350000: uvm_test_top.envh.agt.drvh [DRV_WRITE_NO_AP] Standard Write. Waiting tWTR constraint.
+#              2355000TWR COUNT FROM DDR DEVICE DQS FROM FOR LOOP RTL 1
+#              2355000TWR COUNT FROM DDR DEVICE DQS FROM FOR LOOP RTL AFTER DECREM 0
+# UVM_INFO ../sequences/ddr_mul_wr_seq_bl4_100_X16_seq.sv(88) @ 2355000: uvm_test_top.envh.agt.seqh@@wr_mul_seqh [SEQ_WR_DATA] WRITE -> BA=2 COL_ADDR=9984
+# UVM_INFO ../agents/DDR_driver.sv(319) @ 2375000: uvm_test_top.envh.agt.drvh [DRV_TX_WRITE] WRITE Issued -> BA=2 COL=728 AP=0
+#              2380000**************************INSIDE WRT RTL BA=2
+#              2385000**************************INSIDE WRT RTL BA=2
+# UVM_INFO ../agents/DDR_driver.sv(346) @ 2385000: uvm_test_top.envh.agt.drvh [DRV_WRITE_POS] POS Data Driven: ADDR=728 DATA[0]=3896
+# UVM_INFO ../agents/DDR_monitor.sv(195) @ 2385000: uvm_test_top.envh.agt.monh [MON_WRITE] WRITE BA=2 ADDR=728 AUTO_PRECHARGE=0
+# UVM_INFO ../top/DDR_interface.sv(295) @ 2385000: reporter [wt_rd] write to read assertion is passed
+# UVM_INFO ../top/DDR_interface.sv(269) @ 2385000: reporter [wr_data] wr to data assertion is passed
+#              2390000TWR COUNT FROM DDR DEVICE DQS FROM FOR LOOP RTL 2
+#              2390000TWR COUNT FROM DDR DEVICE DQS FROM FOR LOOP RTL AFTER DECREM 1
+# UVM_INFO ../agents/DDR_driver.sv(354) @ 2390000: uvm_test_top.envh.agt.drvh [DRV_WRITE_NEG] NEG Data Driven: ADDR=728 DATA[1]=45775
+# UVM_INFO ../agents/DDR_monitor.sv(218) @ 2390000: uvm_test_top.envh.agt.monh [MON_write_DATA] Stored Data = 3896
+#              2395000TWR COUNT FROM DDR DEVICE DQS FROM FOR LOOP RTL 1
+#              2395000TWR COUNT FROM DDR DEVICE DQS FROM FOR LOOP RTL AFTER DECREM 0
+# UVM_INFO ../agents/DDR_driver.sv(346) @ 2395000: uvm_test_top.envh.agt.drvh [DRV_WRITE_POS] POS Data Driven: ADDR=728 DATA[2]=29207
+# UVM_INFO ../agents/DDR_monitor.sv(218) @ 2395000: uvm_test_top.envh.agt.monh [MON_write_DATA] Stored Data = 45775
+# UVM_INFO ../agents/DDR_driver.sv(354) @ 2400000: uvm_test_top.envh.agt.drvh [DRV_WRITE_NEG] NEG Data Driven: ADDR=728 DATA[3]=34101
+# UVM_INFO ../agents/DDR_monitor.sv(218) @ 2400000: uvm_test_top.envh.agt.monh [MON_write_DATA] Stored Data = 29207
+# UVM_INFO ../agents/DDR_monitor.sv(218) @ 2405000: uvm_test_top.envh.agt.monh [MON_write_DATA] Stored Data = 34101
+# UVM_INFO ../env/ddr_subscriber.sv(126) @ 2405000: uvm_test_top.envh.cov [COV] DM = 0
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 2405000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [0] DQ Value : 3896
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 2405000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [1] DQ Value : 45775
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 2405000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [2] DQ Value : 29207
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 2405000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [3] DQ Value : 34101
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 2405000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [4] DQ Value : x
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 2405000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [5] DQ Value : x
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 2405000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [6] DQ Value : x
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 2405000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [7] DQ Value : x
+# UVM_INFO ../env/DDR_scoreboard.sv(144) @ 2405000: uvm_test_top.envh.scrb [SCB_WRITE] WRITE BA=2 ROW=12378 COL=728 DATA=3896
+# UVM_INFO ../env/DDR_scoreboard.sv(144) @ 2405000: uvm_test_top.envh.scrb [SCB_WRITE] WRITE BA=2 ROW=12378 COL=729 DATA=45775
+# UVM_INFO ../env/DDR_scoreboard.sv(144) @ 2405000: uvm_test_top.envh.scrb [SCB_WRITE] WRITE BA=2 ROW=12378 COL=730 DATA=29207
+# UVM_INFO ../env/DDR_scoreboard.sv(144) @ 2405000: uvm_test_top.envh.scrb [SCB_WRITE] WRITE BA=2 ROW=12378 COL=731 DATA=34101
+#              2410000TWR COUNT FROM DDR DEVICE DQS FROM FOR LOOP RTL 2
+#              2410000TWR COUNT FROM DDR DEVICE DQS FROM FOR LOOP RTL AFTER DECREM 1
+# UVM_INFO ../agents/DDR_driver.sv(379) @ 2410000: uvm_test_top.envh.agt.drvh [DRV_WRITE_NO_AP] Standard Write. Waiting tWTR constraint.
+#              2415000TWR COUNT FROM DDR DEVICE DQS FROM FOR LOOP RTL 1
+#              2415000TWR COUNT FROM DDR DEVICE DQS FROM FOR LOOP RTL AFTER DECREM 0
+# UVM_INFO ../sequences/ddr_mul_wr_seq_bl4_100_X16_seq.sv(88) @ 2415000: uvm_test_top.envh.agt.seqh@@wr_mul_seqh [SEQ_WR_DATA] WRITE -> BA=2 COL_ADDR=1752
+# UVM_INFO ../sequences/ddr_mul_wr_seq_bl4_100_X16_seq.sv(92) @ 2415000: uvm_test_top.envh.agt.seqh@@wr_mul_seqh [SEQ_READ] Starting 2 Tracking Reads
+# UVM_INFO ../agents/DDR_driver.sv(394) @ 2445000: uvm_test_top.envh.agt.drvh [DRV_TX_READ] READ Issued -> BA=2 ADDR=768 AP=0
+# UVM_INFO ../agents/DDR_monitor.sv(250) @ 2445000: uvm_test_top.envh.agt.monh [MON_READ] READ BA=2 ADDR=768 AUTO_PRECHARGE=0
+# UVM_INFO ../top/DDR_interface.sv(282) @ 2455000: reporter [rd_data] rd to data assertion is passed
+# CAS LATENCY in MON 2
+# UVM_INFO ../agents/DDR_monitor.sv(285) @ 2480000: uvm_test_top.envh.agt.monh [MON_READ_DATA] Stored Data = 40387
+# UVM_INFO ../agents/DDR_monitor.sv(285) @ 2485000: uvm_test_top.envh.agt.monh [MON_READ_DATA] Stored Data = 25819
+# UVM_INFO ../agents/DDR_monitor.sv(285) @ 2490000: uvm_test_top.envh.agt.monh [MON_READ_DATA] Stored Data = 45207
+# UVM_INFO ../agents/DDR_monitor.sv(285) @ 2495000: uvm_test_top.envh.agt.monh [MON_READ_DATA] Stored Data = 4204
+# UVM_INFO ../env/ddr_subscriber.sv(126) @ 2495000: uvm_test_top.envh.cov [COV] DM = 0
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 2495000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [0] DQ Value : 40387
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 2495000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [1] DQ Value : 25819
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 2495000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [2] DQ Value : 45207
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 2495000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [3] DQ Value : 4204
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 2495000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [4] DQ Value : x
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 2495000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [5] DQ Value : x
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 2495000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [6] DQ Value : x
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 2495000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [7] DQ Value : x
+# UVM_INFO ../env/DDR_scoreboard.sv(195) @ 2495000: uvm_test_top.envh.scrb [SCB_READ] READ BA=2 ROW=12378 COL=768 BT= SEQUENTIAL BL=4
+# UVM_INFO ../env/DDR_scoreboard.sv(96) @ 2495000: uvm_test_top.envh.scrb [SCB_PASS] MATCH BA=2 ROW=12378 COL=768 EXP=40387 ACT=40387
+# UVM_INFO ../env/DDR_scoreboard.sv(96) @ 2495000: uvm_test_top.envh.scrb [SCB_PASS] MATCH BA=2 ROW=12378 COL=769 EXP=25819 ACT=25819
+# UVM_INFO ../env/DDR_scoreboard.sv(96) @ 2495000: uvm_test_top.envh.scrb [SCB_PASS] MATCH BA=2 ROW=12378 COL=770 EXP=45207 ACT=45207
+# UVM_INFO ../env/DDR_scoreboard.sv(96) @ 2495000: uvm_test_top.envh.scrb [SCB_PASS] MATCH BA=2 ROW=12378 COL=771 EXP=4204 ACT=4204
+# UVM_INFO ../sequences/ddr_mul_wr_seq_bl4_100_X16_seq.sv(103) @ 2505000: uvm_test_top.envh.agt.seqh@@wr_mul_seqh [SEQ_RD_DATA] READ -> BA=2 COL_ADDR=768
+# UVM_INFO ../agents/DDR_driver.sv(394) @ 2535000: uvm_test_top.envh.agt.drvh [DRV_TX_READ] READ Issued -> BA=2 ADDR=728 AP=0
+# UVM_INFO ../agents/DDR_monitor.sv(250) @ 2535000: uvm_test_top.envh.agt.monh [MON_READ] READ BA=2 ADDR=728 AUTO_PRECHARGE=0
+# UVM_INFO ../top/DDR_interface.sv(282) @ 2545000: reporter [rd_data] rd to data assertion is passed
+# CAS LATENCY in MON 2
+# UVM_INFO ../agents/DDR_monitor.sv(285) @ 2570000: uvm_test_top.envh.agt.monh [MON_READ_DATA] Stored Data = 3896
+# UVM_INFO ../agents/DDR_monitor.sv(285) @ 2575000: uvm_test_top.envh.agt.monh [MON_READ_DATA] Stored Data = 45775
+# UVM_INFO ../agents/DDR_monitor.sv(285) @ 2580000: uvm_test_top.envh.agt.monh [MON_READ_DATA] Stored Data = 29207
+# UVM_INFO ../agents/DDR_monitor.sv(285) @ 2585000: uvm_test_top.envh.agt.monh [MON_READ_DATA] Stored Data = 34101
+# UVM_INFO ../env/ddr_subscriber.sv(126) @ 2585000: uvm_test_top.envh.cov [COV] DM = 0
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 2585000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [0] DQ Value : 3896
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 2585000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [1] DQ Value : 45775
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 2585000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [2] DQ Value : 29207
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 2585000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [3] DQ Value : 34101
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 2585000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [4] DQ Value : x
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 2585000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [5] DQ Value : x
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 2585000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [6] DQ Value : x
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 2585000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [7] DQ Value : x
+# UVM_INFO ../env/DDR_scoreboard.sv(195) @ 2585000: uvm_test_top.envh.scrb [SCB_READ] READ BA=2 ROW=12378 COL=728 BT= SEQUENTIAL BL=4
+# UVM_INFO ../env/DDR_scoreboard.sv(96) @ 2585000: uvm_test_top.envh.scrb [SCB_PASS] MATCH BA=2 ROW=12378 COL=728 EXP=3896 ACT=3896
+# UVM_INFO ../env/DDR_scoreboard.sv(96) @ 2585000: uvm_test_top.envh.scrb [SCB_PASS] MATCH BA=2 ROW=12378 COL=729 EXP=45775 ACT=45775
+# UVM_INFO ../env/DDR_scoreboard.sv(96) @ 2585000: uvm_test_top.envh.scrb [SCB_PASS] MATCH BA=2 ROW=12378 COL=730 EXP=29207 ACT=29207
+# UVM_INFO ../env/DDR_scoreboard.sv(96) @ 2585000: uvm_test_top.envh.scrb [SCB_PASS] MATCH BA=2 ROW=12378 COL=731 EXP=34101 ACT=34101
+# UVM_INFO ../sequences/ddr_mul_wr_seq_bl4_100_X16_seq.sv(103) @ 2595000: uvm_test_top.envh.agt.seqh@@wr_mul_seqh [SEQ_RD_DATA] READ -> BA=2 COL_ADDR=728
+# UVM_INFO ../agents/DDR_driver.sv(421) @ 2595000: uvm_test_top.envh.agt.drvh [DRV_PRE] PRECHRGE BANK = 2
+# UVM_INFO ../env/ddr_subscriber.sv(126) @ 2605000: uvm_test_top.envh.cov [COV] DM = 0
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 2605000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [0] DQ Value : x
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 2605000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [1] DQ Value : x
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 2605000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [2] DQ Value : x
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 2605000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [3] DQ Value : x
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 2605000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [4] DQ Value : x
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 2605000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [5] DQ Value : x
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 2605000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [6] DQ Value : x
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 2605000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [7] DQ Value : x
+# UVM_INFO ../env/DDR_scoreboard.sv(169) @ 2605000: uvm_test_top.envh.scrb [SCB_PRE] PRECHARGE BA=2
+# UVM_INFO ../agents/DDR_monitor.sv(319) @ 2605000: uvm_test_top.envh.agt.monh [MON_PRECHARGE] precharge issued curr_bank=2 
+# UVM_INFO ../sequences/ddr_mul_wr_seq_bl4_100_X16_seq.sv(112) @ 2615000: uvm_test_top.envh.agt.seqh@@wr_mul_seqh [SEQ_PRE] === BANK PRECHARGED === BA=2
+# 
+# UVM_INFO ../agents/DDR_driver.sv(294) @ 2615000: uvm_test_top.envh.agt.drvh [DRV_TRRD] Waiting tRRD between ACT BA=2 and BA=2
+# UVM_INFO ../top/DDR_interface.sv(202) @ 2615000: reporter [PRE_AR] PRE to AR assertion is passed
+# UVM_INFO ../agents/DDR_driver.sv(305) @ 2635000: uvm_test_top.envh.agt.drvh [DRV_ACT] ACT BA=2 ROW=3428
+# UVM_INFO ../sequences/ddr_mul_wr_seq_bl4_100_X16_seq.sv(76) @ 2635000: uvm_test_top.envh.agt.seqh@@wr_mul_seqh [SEQ_ACT] === BANK ACTIVATED === BA=2 ROW=3428
+# UVM_INFO ../sequences/ddr_mul_wr_seq_bl4_100_X16_seq.sv(79) @ 2635000: uvm_test_top.envh.agt.seqh@@wr_mul_seqh [SEQ_WRITE] Starting 4 Randomized Writes
+#              2640000**************************INSIDE ACT RTL  =2
+#              2645000**************************INSIDE ACT RTL  =2
+# UVM_INFO ../env/ddr_subscriber.sv(126) @ 2645000: uvm_test_top.envh.cov [COV] DM = 0
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 2645000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [0] DQ Value : x
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 2645000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [1] DQ Value : x
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 2645000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [2] DQ Value : x
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 2645000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [3] DQ Value : x
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 2645000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [4] DQ Value : x
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 2645000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [5] DQ Value : x
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 2645000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [6] DQ Value : x
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 2645000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [7] DQ Value : x
+# UVM_INFO ../env/DDR_scoreboard.sv(122) @ 2645000: uvm_test_top.envh.scrb [SCB_ACT] ACTIVATE BA=2 ROW=3428
+# UVM_INFO ../agents/DDR_monitor.sv(173) @ 2645000: uvm_test_top.envh.agt.monh [MON_ACTIVATE] BA=2 ADDR=3428
+# UVM_INFO ../agents/DDR_driver.sv(319) @ 2655000: uvm_test_top.envh.agt.drvh [DRV_TX_WRITE] WRITE Issued -> BA=2 COL=912 AP=0
+# UVM_INFO ../top/DDR_interface.sv(256) @ 2655000: reporter [act_wr] act to wr assertion is passed
+#              2660000**************************INSIDE WRT RTL BA=2
+#              2665000**************************INSIDE WRT RTL BA=2
+# UVM_INFO ../agents/DDR_driver.sv(346) @ 2665000: uvm_test_top.envh.agt.drvh [DRV_WRITE_POS] POS Data Driven: ADDR=912 DATA[0]=16375
+# UVM_INFO ../agents/DDR_monitor.sv(195) @ 2665000: uvm_test_top.envh.agt.monh [MON_WRITE] WRITE BA=2 ADDR=912 AUTO_PRECHARGE=0
+# UVM_INFO ../top/DDR_interface.sv(295) @ 2665000: reporter [wt_rd] write to read assertion is passed
+# UVM_INFO ../top/DDR_interface.sv(269) @ 2665000: reporter [wr_data] wr to data assertion is passed
+#              2670000TWR COUNT FROM DDR DEVICE DQS FROM FOR LOOP RTL 2
+#              2670000TWR COUNT FROM DDR DEVICE DQS FROM FOR LOOP RTL AFTER DECREM 1
+# UVM_INFO ../agents/DDR_driver.sv(354) @ 2670000: uvm_test_top.envh.agt.drvh [DRV_WRITE_NEG] NEG Data Driven: ADDR=912 DATA[1]=24261
+# UVM_INFO ../agents/DDR_monitor.sv(218) @ 2670000: uvm_test_top.envh.agt.monh [MON_write_DATA] Stored Data = 16375
+#              2675000TWR COUNT FROM DDR DEVICE DQS FROM FOR LOOP RTL 1
+#              2675000TWR COUNT FROM DDR DEVICE DQS FROM FOR LOOP RTL AFTER DECREM 0
+# UVM_INFO ../agents/DDR_driver.sv(346) @ 2675000: uvm_test_top.envh.agt.drvh [DRV_WRITE_POS] POS Data Driven: ADDR=912 DATA[2]=59594
+# UVM_INFO ../agents/DDR_monitor.sv(218) @ 2675000: uvm_test_top.envh.agt.monh [MON_write_DATA] Stored Data = 24261
+# UVM_INFO ../agents/DDR_driver.sv(354) @ 2680000: uvm_test_top.envh.agt.drvh [DRV_WRITE_NEG] NEG Data Driven: ADDR=912 DATA[3]=15642
+# UVM_INFO ../agents/DDR_monitor.sv(218) @ 2680000: uvm_test_top.envh.agt.monh [MON_write_DATA] Stored Data = 59594
+# UVM_INFO ../agents/DDR_monitor.sv(218) @ 2685000: uvm_test_top.envh.agt.monh [MON_write_DATA] Stored Data = 15642
+# UVM_INFO ../env/ddr_subscriber.sv(126) @ 2685000: uvm_test_top.envh.cov [COV] DM = 0
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 2685000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [0] DQ Value : 16375
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 2685000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [1] DQ Value : 24261
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 2685000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [2] DQ Value : 59594
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 2685000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [3] DQ Value : 15642
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 2685000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [4] DQ Value : x
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 2685000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [5] DQ Value : x
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 2685000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [6] DQ Value : x
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 2685000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [7] DQ Value : x
+# UVM_INFO ../env/DDR_scoreboard.sv(144) @ 2685000: uvm_test_top.envh.scrb [SCB_WRITE] WRITE BA=2 ROW=3428 COL=912 DATA=16375
+# UVM_INFO ../env/DDR_scoreboard.sv(144) @ 2685000: uvm_test_top.envh.scrb [SCB_WRITE] WRITE BA=2 ROW=3428 COL=913 DATA=24261
+# UVM_INFO ../env/DDR_scoreboard.sv(144) @ 2685000: uvm_test_top.envh.scrb [SCB_WRITE] WRITE BA=2 ROW=3428 COL=914 DATA=59594
+# UVM_INFO ../env/DDR_scoreboard.sv(144) @ 2685000: uvm_test_top.envh.scrb [SCB_WRITE] WRITE BA=2 ROW=3428 COL=915 DATA=15642
+#              2690000TWR COUNT FROM DDR DEVICE DQS FROM FOR LOOP RTL 2
+#              2690000TWR COUNT FROM DDR DEVICE DQS FROM FOR LOOP RTL AFTER DECREM 1
+# UVM_INFO ../agents/DDR_driver.sv(379) @ 2690000: uvm_test_top.envh.agt.drvh [DRV_WRITE_NO_AP] Standard Write. Waiting tWTR constraint.
+#              2695000TWR COUNT FROM DDR DEVICE DQS FROM FOR LOOP RTL 1
+#              2695000TWR COUNT FROM DDR DEVICE DQS FROM FOR LOOP RTL AFTER DECREM 0
+# UVM_INFO ../sequences/ddr_mul_wr_seq_bl4_100_X16_seq.sv(88) @ 2695000: uvm_test_top.envh.agt.seqh@@wr_mul_seqh [SEQ_WR_DATA] WRITE -> BA=2 COL_ADDR=9104
+# UVM_INFO ../agents/DDR_driver.sv(319) @ 2715000: uvm_test_top.envh.agt.drvh [DRV_TX_WRITE] WRITE Issued -> BA=2 COL=48 AP=0
+#              2720000**************************INSIDE WRT RTL BA=2
+#              2725000**************************INSIDE WRT RTL BA=2
+# UVM_INFO ../agents/DDR_driver.sv(346) @ 2725000: uvm_test_top.envh.agt.drvh [DRV_WRITE_POS] POS Data Driven: ADDR=48 DATA[0]=26658
+# UVM_INFO ../agents/DDR_monitor.sv(195) @ 2725000: uvm_test_top.envh.agt.monh [MON_WRITE] WRITE BA=2 ADDR=48 AUTO_PRECHARGE=0
+# UVM_INFO ../top/DDR_interface.sv(295) @ 2725000: reporter [wt_rd] write to read assertion is passed
+# UVM_INFO ../top/DDR_interface.sv(269) @ 2725000: reporter [wr_data] wr to data assertion is passed
+#              2730000TWR COUNT FROM DDR DEVICE DQS FROM FOR LOOP RTL 2
+#              2730000TWR COUNT FROM DDR DEVICE DQS FROM FOR LOOP RTL AFTER DECREM 1
+# UVM_INFO ../agents/DDR_driver.sv(354) @ 2730000: uvm_test_top.envh.agt.drvh [DRV_WRITE_NEG] NEG Data Driven: ADDR=48 DATA[1]=27291
+# UVM_INFO ../agents/DDR_monitor.sv(218) @ 2730000: uvm_test_top.envh.agt.monh [MON_write_DATA] Stored Data = 26658
+#              2735000TWR COUNT FROM DDR DEVICE DQS FROM FOR LOOP RTL 1
+#              2735000TWR COUNT FROM DDR DEVICE DQS FROM FOR LOOP RTL AFTER DECREM 0
+# UVM_INFO ../agents/DDR_driver.sv(346) @ 2735000: uvm_test_top.envh.agt.drvh [DRV_WRITE_POS] POS Data Driven: ADDR=48 DATA[2]=56779
+# UVM_INFO ../agents/DDR_monitor.sv(218) @ 2735000: uvm_test_top.envh.agt.monh [MON_write_DATA] Stored Data = 27291
+# UVM_INFO ../agents/DDR_driver.sv(354) @ 2740000: uvm_test_top.envh.agt.drvh [DRV_WRITE_NEG] NEG Data Driven: ADDR=48 DATA[3]=57837
+# UVM_INFO ../agents/DDR_monitor.sv(218) @ 2740000: uvm_test_top.envh.agt.monh [MON_write_DATA] Stored Data = 56779
+# UVM_INFO ../agents/DDR_monitor.sv(218) @ 2745000: uvm_test_top.envh.agt.monh [MON_write_DATA] Stored Data = 57837
+# UVM_INFO ../env/ddr_subscriber.sv(126) @ 2745000: uvm_test_top.envh.cov [COV] DM = 0
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 2745000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [0] DQ Value : 26658
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 2745000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [1] DQ Value : 27291
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 2745000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [2] DQ Value : 56779
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 2745000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [3] DQ Value : 57837
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 2745000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [4] DQ Value : x
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 2745000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [5] DQ Value : x
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 2745000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [6] DQ Value : x
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 2745000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [7] DQ Value : x
+# UVM_INFO ../env/DDR_scoreboard.sv(144) @ 2745000: uvm_test_top.envh.scrb [SCB_WRITE] WRITE BA=2 ROW=3428 COL=48 DATA=26658
+# UVM_INFO ../env/DDR_scoreboard.sv(144) @ 2745000: uvm_test_top.envh.scrb [SCB_WRITE] WRITE BA=2 ROW=3428 COL=49 DATA=27291
+# UVM_INFO ../env/DDR_scoreboard.sv(144) @ 2745000: uvm_test_top.envh.scrb [SCB_WRITE] WRITE BA=2 ROW=3428 COL=50 DATA=56779
+# UVM_INFO ../env/DDR_scoreboard.sv(144) @ 2745000: uvm_test_top.envh.scrb [SCB_WRITE] WRITE BA=2 ROW=3428 COL=51 DATA=57837
+#              2750000TWR COUNT FROM DDR DEVICE DQS FROM FOR LOOP RTL 2
+#              2750000TWR COUNT FROM DDR DEVICE DQS FROM FOR LOOP RTL AFTER DECREM 1
+# UVM_INFO ../agents/DDR_driver.sv(379) @ 2750000: uvm_test_top.envh.agt.drvh [DRV_WRITE_NO_AP] Standard Write. Waiting tWTR constraint.
+#              2755000TWR COUNT FROM DDR DEVICE DQS FROM FOR LOOP RTL 1
+#              2755000TWR COUNT FROM DDR DEVICE DQS FROM FOR LOOP RTL AFTER DECREM 0
+# UVM_INFO ../sequences/ddr_mul_wr_seq_bl4_100_X16_seq.sv(88) @ 2755000: uvm_test_top.envh.agt.seqh@@wr_mul_seqh [SEQ_WR_DATA] WRITE -> BA=2 COL_ADDR=4144
+# UVM_INFO ../agents/DDR_driver.sv(319) @ 2775000: uvm_test_top.envh.agt.drvh [DRV_TX_WRITE] WRITE Issued -> BA=2 COL=432 AP=0
+#              2780000**************************INSIDE WRT RTL BA=2
+#              2785000**************************INSIDE WRT RTL BA=2
+# UVM_INFO ../agents/DDR_driver.sv(346) @ 2785000: uvm_test_top.envh.agt.drvh [DRV_WRITE_POS] POS Data Driven: ADDR=432 DATA[0]=50197
+# UVM_INFO ../agents/DDR_monitor.sv(195) @ 2785000: uvm_test_top.envh.agt.monh [MON_WRITE] WRITE BA=2 ADDR=432 AUTO_PRECHARGE=0
+# UVM_INFO ../top/DDR_interface.sv(295) @ 2785000: reporter [wt_rd] write to read assertion is passed
+# UVM_INFO ../top/DDR_interface.sv(269) @ 2785000: reporter [wr_data] wr to data assertion is passed
+#              2790000TWR COUNT FROM DDR DEVICE DQS FROM FOR LOOP RTL 2
+#              2790000TWR COUNT FROM DDR DEVICE DQS FROM FOR LOOP RTL AFTER DECREM 1
+# UVM_INFO ../agents/DDR_driver.sv(354) @ 2790000: uvm_test_top.envh.agt.drvh [DRV_WRITE_NEG] NEG Data Driven: ADDR=432 DATA[1]=63737
+# UVM_INFO ../agents/DDR_monitor.sv(218) @ 2790000: uvm_test_top.envh.agt.monh [MON_write_DATA] Stored Data = 50197
+#              2795000TWR COUNT FROM DDR DEVICE DQS FROM FOR LOOP RTL 1
+#              2795000TWR COUNT FROM DDR DEVICE DQS FROM FOR LOOP RTL AFTER DECREM 0
+# UVM_INFO ../agents/DDR_driver.sv(346) @ 2795000: uvm_test_top.envh.agt.drvh [DRV_WRITE_POS] POS Data Driven: ADDR=432 DATA[2]=1998
+# UVM_INFO ../agents/DDR_monitor.sv(218) @ 2795000: uvm_test_top.envh.agt.monh [MON_write_DATA] Stored Data = 63737
+# UVM_INFO ../agents/DDR_driver.sv(354) @ 2800000: uvm_test_top.envh.agt.drvh [DRV_WRITE_NEG] NEG Data Driven: ADDR=432 DATA[3]=3100
+# UVM_INFO ../agents/DDR_monitor.sv(218) @ 2800000: uvm_test_top.envh.agt.monh [MON_write_DATA] Stored Data = 1998
+# UVM_INFO ../agents/DDR_monitor.sv(218) @ 2805000: uvm_test_top.envh.agt.monh [MON_write_DATA] Stored Data = 3100
+# UVM_INFO ../env/ddr_subscriber.sv(126) @ 2805000: uvm_test_top.envh.cov [COV] DM = 0
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 2805000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [0] DQ Value : 50197
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 2805000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [1] DQ Value : 63737
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 2805000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [2] DQ Value : 1998
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 2805000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [3] DQ Value : 3100
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 2805000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [4] DQ Value : x
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 2805000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [5] DQ Value : x
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 2805000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [6] DQ Value : x
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 2805000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [7] DQ Value : x
+# UVM_INFO ../env/DDR_scoreboard.sv(144) @ 2805000: uvm_test_top.envh.scrb [SCB_WRITE] WRITE BA=2 ROW=3428 COL=432 DATA=50197
+# UVM_INFO ../env/DDR_scoreboard.sv(144) @ 2805000: uvm_test_top.envh.scrb [SCB_WRITE] WRITE BA=2 ROW=3428 COL=433 DATA=63737
+# UVM_INFO ../env/DDR_scoreboard.sv(144) @ 2805000: uvm_test_top.envh.scrb [SCB_WRITE] WRITE BA=2 ROW=3428 COL=434 DATA=1998
+# UVM_INFO ../env/DDR_scoreboard.sv(144) @ 2805000: uvm_test_top.envh.scrb [SCB_WRITE] WRITE BA=2 ROW=3428 COL=435 DATA=3100
+#              2810000TWR COUNT FROM DDR DEVICE DQS FROM FOR LOOP RTL 2
+#              2810000TWR COUNT FROM DDR DEVICE DQS FROM FOR LOOP RTL AFTER DECREM 1
+# UVM_INFO ../agents/DDR_driver.sv(379) @ 2810000: uvm_test_top.envh.agt.drvh [DRV_WRITE_NO_AP] Standard Write. Waiting tWTR constraint.
+#              2815000TWR COUNT FROM DDR DEVICE DQS FROM FOR LOOP RTL 1
+#              2815000TWR COUNT FROM DDR DEVICE DQS FROM FOR LOOP RTL AFTER DECREM 0
+# UVM_INFO ../sequences/ddr_mul_wr_seq_bl4_100_X16_seq.sv(88) @ 2815000: uvm_test_top.envh.agt.seqh@@wr_mul_seqh [SEQ_WR_DATA] WRITE -> BA=2 COL_ADDR=1456
+# UVM_INFO ../agents/DDR_driver.sv(319) @ 2835000: uvm_test_top.envh.agt.drvh [DRV_TX_WRITE] WRITE Issued -> BA=2 COL=784 AP=0
+#              2840000**************************INSIDE WRT RTL BA=2
+#              2845000**************************INSIDE WRT RTL BA=2
+# UVM_INFO ../agents/DDR_driver.sv(346) @ 2845000: uvm_test_top.envh.agt.drvh [DRV_WRITE_POS] POS Data Driven: ADDR=784 DATA[0]=33331
+# UVM_INFO ../agents/DDR_monitor.sv(195) @ 2845000: uvm_test_top.envh.agt.monh [MON_WRITE] WRITE BA=2 ADDR=784 AUTO_PRECHARGE=0
+# UVM_INFO ../top/DDR_interface.sv(295) @ 2845000: reporter [wt_rd] write to read assertion is passed
+# UVM_INFO ../top/DDR_interface.sv(269) @ 2845000: reporter [wr_data] wr to data assertion is passed
+#              2850000TWR COUNT FROM DDR DEVICE DQS FROM FOR LOOP RTL 2
+#              2850000TWR COUNT FROM DDR DEVICE DQS FROM FOR LOOP RTL AFTER DECREM 1
+# UVM_INFO ../agents/DDR_driver.sv(354) @ 2850000: uvm_test_top.envh.agt.drvh [DRV_WRITE_NEG] NEG Data Driven: ADDR=784 DATA[1]=15913
+# UVM_INFO ../agents/DDR_monitor.sv(218) @ 2850000: uvm_test_top.envh.agt.monh [MON_write_DATA] Stored Data = 33331
+#              2855000TWR COUNT FROM DDR DEVICE DQS FROM FOR LOOP RTL 1
+#              2855000TWR COUNT FROM DDR DEVICE DQS FROM FOR LOOP RTL AFTER DECREM 0
+# UVM_INFO ../agents/DDR_driver.sv(346) @ 2855000: uvm_test_top.envh.agt.drvh [DRV_WRITE_POS] POS Data Driven: ADDR=784 DATA[2]=63272
+# UVM_INFO ../agents/DDR_monitor.sv(218) @ 2855000: uvm_test_top.envh.agt.monh [MON_write_DATA] Stored Data = 15913
+# UVM_INFO ../agents/DDR_driver.sv(354) @ 2860000: uvm_test_top.envh.agt.drvh [DRV_WRITE_NEG] NEG Data Driven: ADDR=784 DATA[3]=15271
+# UVM_INFO ../agents/DDR_monitor.sv(218) @ 2860000: uvm_test_top.envh.agt.monh [MON_write_DATA] Stored Data = 63272
+# UVM_INFO ../agents/DDR_monitor.sv(218) @ 2865000: uvm_test_top.envh.agt.monh [MON_write_DATA] Stored Data = 15271
+# UVM_INFO ../env/ddr_subscriber.sv(126) @ 2865000: uvm_test_top.envh.cov [COV] DM = 0
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 2865000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [0] DQ Value : 33331
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 2865000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [1] DQ Value : 15913
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 2865000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [2] DQ Value : 63272
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 2865000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [3] DQ Value : 15271
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 2865000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [4] DQ Value : x
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 2865000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [5] DQ Value : x
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 2865000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [6] DQ Value : x
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 2865000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [7] DQ Value : x
+# UVM_INFO ../env/DDR_scoreboard.sv(144) @ 2865000: uvm_test_top.envh.scrb [SCB_WRITE] WRITE BA=2 ROW=3428 COL=784 DATA=33331
+# UVM_INFO ../env/DDR_scoreboard.sv(144) @ 2865000: uvm_test_top.envh.scrb [SCB_WRITE] WRITE BA=2 ROW=3428 COL=785 DATA=15913
+# UVM_INFO ../env/DDR_scoreboard.sv(144) @ 2865000: uvm_test_top.envh.scrb [SCB_WRITE] WRITE BA=2 ROW=3428 COL=786 DATA=63272
+# UVM_INFO ../env/DDR_scoreboard.sv(144) @ 2865000: uvm_test_top.envh.scrb [SCB_WRITE] WRITE BA=2 ROW=3428 COL=787 DATA=15271
+#              2870000TWR COUNT FROM DDR DEVICE DQS FROM FOR LOOP RTL 2
+#              2870000TWR COUNT FROM DDR DEVICE DQS FROM FOR LOOP RTL AFTER DECREM 1
+# UVM_INFO ../agents/DDR_driver.sv(379) @ 2870000: uvm_test_top.envh.agt.drvh [DRV_WRITE_NO_AP] Standard Write. Waiting tWTR constraint.
+#              2875000TWR COUNT FROM DDR DEVICE DQS FROM FOR LOOP RTL 1
+#              2875000TWR COUNT FROM DDR DEVICE DQS FROM FOR LOOP RTL AFTER DECREM 0
+# UVM_INFO ../sequences/ddr_mul_wr_seq_bl4_100_X16_seq.sv(88) @ 2875000: uvm_test_top.envh.agt.seqh@@wr_mul_seqh [SEQ_WR_DATA] WRITE -> BA=2 COL_ADDR=1808
+# UVM_INFO ../sequences/ddr_mul_wr_seq_bl4_100_X16_seq.sv(92) @ 2875000: uvm_test_top.envh.agt.seqh@@wr_mul_seqh [SEQ_READ] Starting 4 Tracking Reads
+# UVM_INFO ../agents/DDR_driver.sv(394) @ 2905000: uvm_test_top.envh.agt.drvh [DRV_TX_READ] READ Issued -> BA=2 ADDR=912 AP=0
+# UVM_INFO ../agents/DDR_monitor.sv(250) @ 2905000: uvm_test_top.envh.agt.monh [MON_READ] READ BA=2 ADDR=912 AUTO_PRECHARGE=0
+# UVM_INFO ../top/DDR_interface.sv(282) @ 2915000: reporter [rd_data] rd to data assertion is passed
+# CAS LATENCY in MON 2
+# UVM_INFO ../agents/DDR_monitor.sv(285) @ 2940000: uvm_test_top.envh.agt.monh [MON_READ_DATA] Stored Data = 16375
+# UVM_INFO ../agents/DDR_monitor.sv(285) @ 2945000: uvm_test_top.envh.agt.monh [MON_READ_DATA] Stored Data = 24261
+# UVM_INFO ../agents/DDR_monitor.sv(285) @ 2950000: uvm_test_top.envh.agt.monh [MON_READ_DATA] Stored Data = 59594
+# UVM_INFO ../agents/DDR_monitor.sv(285) @ 2955000: uvm_test_top.envh.agt.monh [MON_READ_DATA] Stored Data = 15642
+# UVM_INFO ../env/ddr_subscriber.sv(126) @ 2955000: uvm_test_top.envh.cov [COV] DM = 0
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 2955000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [0] DQ Value : 16375
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 2955000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [1] DQ Value : 24261
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 2955000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [2] DQ Value : 59594
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 2955000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [3] DQ Value : 15642
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 2955000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [4] DQ Value : x
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 2955000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [5] DQ Value : x
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 2955000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [6] DQ Value : x
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 2955000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [7] DQ Value : x
+# UVM_INFO ../env/DDR_scoreboard.sv(195) @ 2955000: uvm_test_top.envh.scrb [SCB_READ] READ BA=2 ROW=3428 COL=912 BT= SEQUENTIAL BL=4
+# UVM_INFO ../env/DDR_scoreboard.sv(96) @ 2955000: uvm_test_top.envh.scrb [SCB_PASS] MATCH BA=2 ROW=3428 COL=912 EXP=16375 ACT=16375
+# UVM_INFO ../env/DDR_scoreboard.sv(96) @ 2955000: uvm_test_top.envh.scrb [SCB_PASS] MATCH BA=2 ROW=3428 COL=913 EXP=24261 ACT=24261
+# UVM_INFO ../env/DDR_scoreboard.sv(96) @ 2955000: uvm_test_top.envh.scrb [SCB_PASS] MATCH BA=2 ROW=3428 COL=914 EXP=59594 ACT=59594
+# UVM_INFO ../env/DDR_scoreboard.sv(96) @ 2955000: uvm_test_top.envh.scrb [SCB_PASS] MATCH BA=2 ROW=3428 COL=915 EXP=15642 ACT=15642
+# UVM_INFO ../sequences/ddr_mul_wr_seq_bl4_100_X16_seq.sv(103) @ 2965000: uvm_test_top.envh.agt.seqh@@wr_mul_seqh [SEQ_RD_DATA] READ -> BA=2 COL_ADDR=912
+# UVM_INFO ../agents/DDR_driver.sv(394) @ 2995000: uvm_test_top.envh.agt.drvh [DRV_TX_READ] READ Issued -> BA=2 ADDR=48 AP=0
+# UVM_INFO ../agents/DDR_monitor.sv(250) @ 2995000: uvm_test_top.envh.agt.monh [MON_READ] READ BA=2 ADDR=48 AUTO_PRECHARGE=0
+# UVM_INFO ../top/DDR_interface.sv(282) @ 3005000: reporter [rd_data] rd to data assertion is passed
+# CAS LATENCY in MON 2
+# UVM_INFO ../agents/DDR_monitor.sv(285) @ 3030000: uvm_test_top.envh.agt.monh [MON_READ_DATA] Stored Data = 26658
+# UVM_INFO ../agents/DDR_monitor.sv(285) @ 3035000: uvm_test_top.envh.agt.monh [MON_READ_DATA] Stored Data = 27291
+# UVM_INFO ../agents/DDR_monitor.sv(285) @ 3040000: uvm_test_top.envh.agt.monh [MON_READ_DATA] Stored Data = 56779
+# UVM_INFO ../agents/DDR_monitor.sv(285) @ 3045000: uvm_test_top.envh.agt.monh [MON_READ_DATA] Stored Data = 57837
+# UVM_INFO ../env/ddr_subscriber.sv(126) @ 3045000: uvm_test_top.envh.cov [COV] DM = 0
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 3045000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [0] DQ Value : 26658
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 3045000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [1] DQ Value : 27291
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 3045000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [2] DQ Value : 56779
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 3045000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [3] DQ Value : 57837
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 3045000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [4] DQ Value : x
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 3045000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [5] DQ Value : x
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 3045000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [6] DQ Value : x
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 3045000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [7] DQ Value : x
+# UVM_INFO ../env/DDR_scoreboard.sv(195) @ 3045000: uvm_test_top.envh.scrb [SCB_READ] READ BA=2 ROW=3428 COL=48 BT= SEQUENTIAL BL=4
+# UVM_INFO ../env/DDR_scoreboard.sv(96) @ 3045000: uvm_test_top.envh.scrb [SCB_PASS] MATCH BA=2 ROW=3428 COL=48 EXP=26658 ACT=26658
+# UVM_INFO ../env/DDR_scoreboard.sv(96) @ 3045000: uvm_test_top.envh.scrb [SCB_PASS] MATCH BA=2 ROW=3428 COL=49 EXP=27291 ACT=27291
+# UVM_INFO ../env/DDR_scoreboard.sv(96) @ 3045000: uvm_test_top.envh.scrb [SCB_PASS] MATCH BA=2 ROW=3428 COL=50 EXP=56779 ACT=56779
+# UVM_INFO ../env/DDR_scoreboard.sv(96) @ 3045000: uvm_test_top.envh.scrb [SCB_PASS] MATCH BA=2 ROW=3428 COL=51 EXP=57837 ACT=57837
+# UVM_INFO ../sequences/ddr_mul_wr_seq_bl4_100_X16_seq.sv(103) @ 3055000: uvm_test_top.envh.agt.seqh@@wr_mul_seqh [SEQ_RD_DATA] READ -> BA=2 COL_ADDR=48
+# UVM_INFO ../agents/DDR_driver.sv(394) @ 3085000: uvm_test_top.envh.agt.drvh [DRV_TX_READ] READ Issued -> BA=2 ADDR=432 AP=0
+# UVM_INFO ../agents/DDR_monitor.sv(250) @ 3085000: uvm_test_top.envh.agt.monh [MON_READ] READ BA=2 ADDR=432 AUTO_PRECHARGE=0
+# UVM_INFO ../top/DDR_interface.sv(282) @ 3095000: reporter [rd_data] rd to data assertion is passed
+# CAS LATENCY in MON 2
+# UVM_INFO ../agents/DDR_monitor.sv(285) @ 3120000: uvm_test_top.envh.agt.monh [MON_READ_DATA] Stored Data = 50197
+# UVM_INFO ../agents/DDR_monitor.sv(285) @ 3125000: uvm_test_top.envh.agt.monh [MON_READ_DATA] Stored Data = 63737
+# UVM_INFO ../agents/DDR_monitor.sv(285) @ 3130000: uvm_test_top.envh.agt.monh [MON_READ_DATA] Stored Data = 1998
+# UVM_INFO ../agents/DDR_monitor.sv(285) @ 3135000: uvm_test_top.envh.agt.monh [MON_READ_DATA] Stored Data = 3100
+# UVM_INFO ../env/ddr_subscriber.sv(126) @ 3135000: uvm_test_top.envh.cov [COV] DM = 0
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 3135000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [0] DQ Value : 50197
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 3135000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [1] DQ Value : 63737
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 3135000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [2] DQ Value : 1998
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 3135000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [3] DQ Value : 3100
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 3135000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [4] DQ Value : x
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 3135000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [5] DQ Value : x
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 3135000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [6] DQ Value : x
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 3135000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [7] DQ Value : x
+# UVM_INFO ../env/DDR_scoreboard.sv(195) @ 3135000: uvm_test_top.envh.scrb [SCB_READ] READ BA=2 ROW=3428 COL=432 BT= SEQUENTIAL BL=4
+# UVM_INFO ../env/DDR_scoreboard.sv(96) @ 3135000: uvm_test_top.envh.scrb [SCB_PASS] MATCH BA=2 ROW=3428 COL=432 EXP=50197 ACT=50197
+# UVM_INFO ../env/DDR_scoreboard.sv(96) @ 3135000: uvm_test_top.envh.scrb [SCB_PASS] MATCH BA=2 ROW=3428 COL=433 EXP=63737 ACT=63737
+# UVM_INFO ../env/DDR_scoreboard.sv(96) @ 3135000: uvm_test_top.envh.scrb [SCB_PASS] MATCH BA=2 ROW=3428 COL=434 EXP=1998 ACT=1998
+# UVM_INFO ../env/DDR_scoreboard.sv(96) @ 3135000: uvm_test_top.envh.scrb [SCB_PASS] MATCH BA=2 ROW=3428 COL=435 EXP=3100 ACT=3100
+# UVM_INFO ../sequences/ddr_mul_wr_seq_bl4_100_X16_seq.sv(103) @ 3145000: uvm_test_top.envh.agt.seqh@@wr_mul_seqh [SEQ_RD_DATA] READ -> BA=2 COL_ADDR=432
+# UVM_INFO ../agents/DDR_driver.sv(394) @ 3175000: uvm_test_top.envh.agt.drvh [DRV_TX_READ] READ Issued -> BA=2 ADDR=784 AP=0
+# UVM_INFO ../agents/DDR_monitor.sv(250) @ 3175000: uvm_test_top.envh.agt.monh [MON_READ] READ BA=2 ADDR=784 AUTO_PRECHARGE=0
+# UVM_INFO ../top/DDR_interface.sv(282) @ 3185000: reporter [rd_data] rd to data assertion is passed
+# CAS LATENCY in MON 2
+# UVM_INFO ../agents/DDR_monitor.sv(285) @ 3210000: uvm_test_top.envh.agt.monh [MON_READ_DATA] Stored Data = 33331
+# UVM_INFO ../agents/DDR_monitor.sv(285) @ 3215000: uvm_test_top.envh.agt.monh [MON_READ_DATA] Stored Data = 15913
+# UVM_INFO ../agents/DDR_monitor.sv(285) @ 3220000: uvm_test_top.envh.agt.monh [MON_READ_DATA] Stored Data = 63272
+# UVM_INFO ../agents/DDR_monitor.sv(285) @ 3225000: uvm_test_top.envh.agt.monh [MON_READ_DATA] Stored Data = 15271
+# UVM_INFO ../env/ddr_subscriber.sv(126) @ 3225000: uvm_test_top.envh.cov [COV] DM = 0
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 3225000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [0] DQ Value : 33331
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 3225000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [1] DQ Value : 15913
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 3225000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [2] DQ Value : 63272
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 3225000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [3] DQ Value : 15271
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 3225000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [4] DQ Value : x
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 3225000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [5] DQ Value : x
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 3225000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [6] DQ Value : x
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 3225000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [7] DQ Value : x
+# UVM_INFO ../env/DDR_scoreboard.sv(195) @ 3225000: uvm_test_top.envh.scrb [SCB_READ] READ BA=2 ROW=3428 COL=784 BT= SEQUENTIAL BL=4
+# UVM_INFO ../env/DDR_scoreboard.sv(96) @ 3225000: uvm_test_top.envh.scrb [SCB_PASS] MATCH BA=2 ROW=3428 COL=784 EXP=33331 ACT=33331
+# UVM_INFO ../env/DDR_scoreboard.sv(96) @ 3225000: uvm_test_top.envh.scrb [SCB_PASS] MATCH BA=2 ROW=3428 COL=785 EXP=15913 ACT=15913
+# UVM_INFO ../env/DDR_scoreboard.sv(96) @ 3225000: uvm_test_top.envh.scrb [SCB_PASS] MATCH BA=2 ROW=3428 COL=786 EXP=63272 ACT=63272
+# UVM_INFO ../env/DDR_scoreboard.sv(96) @ 3225000: uvm_test_top.envh.scrb [SCB_PASS] MATCH BA=2 ROW=3428 COL=787 EXP=15271 ACT=15271
+# UVM_INFO ../sequences/ddr_mul_wr_seq_bl4_100_X16_seq.sv(103) @ 3235000: uvm_test_top.envh.agt.seqh@@wr_mul_seqh [SEQ_RD_DATA] READ -> BA=2 COL_ADDR=784
+# UVM_INFO ../agents/DDR_driver.sv(421) @ 3235000: uvm_test_top.envh.agt.drvh [DRV_PRE] PRECHRGE BANK = 2
+# UVM_INFO ../env/ddr_subscriber.sv(126) @ 3245000: uvm_test_top.envh.cov [COV] DM = 0
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 3245000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [0] DQ Value : x
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 3245000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [1] DQ Value : x
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 3245000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [2] DQ Value : x
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 3245000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [3] DQ Value : x
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 3245000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [4] DQ Value : x
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 3245000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [5] DQ Value : x
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 3245000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [6] DQ Value : x
+# UVM_INFO ../env/ddr_subscriber.sv(130) @ 3245000: uvm_test_top.envh.cov [COV_DEBUG] Burst Beat [7] DQ Value : x
+# UVM_INFO ../env/DDR_scoreboard.sv(169) @ 3245000: uvm_test_top.envh.scrb [SCB_PRE] PRECHARGE BA=2
+# UVM_INFO ../agents/DDR_monitor.sv(319) @ 3245000: uvm_test_top.envh.agt.monh [MON_PRECHARGE] precharge issued curr_bank=2 
+# UVM_INFO ../sequences/ddr_mul_wr_seq_bl4_100_X16_seq.sv(112) @ 3255000: uvm_test_top.envh.agt.seqh@@wr_mul_seqh [SEQ_PRE] === BANK PRECHARGED === BA=2
+# 
+# UVM_INFO ../top/DDR_interface.sv(202) @ 3255000: reporter [PRE_AR] PRE to AR assertion is passed
+# UVM_INFO verilog_src/uvm-1.1d/src/base/uvm_objection.svh(1267) @ 3255150: reporter [TEST_DONE] 'run' phase is ready to proceed to the 'extract' phase
+# 
+# --- UVM Report Summary ---
+# 
+# ** Report counts by severity
+# UVM_INFO :  458
+# UVM_WARNING :    0
+# UVM_ERROR :    0
+# UVM_FATAL :    0
+# ** Report counts by id
+# [AR_AR]     1
+# [AR_MRS]     1
+# [COV]    23
+# [COV_DEBUG]   184
+# [DRV_ACT]     2
+# [DRV_CFG]     1
+# [DRV_MRS]     3
+# [DRV_PARAMS]     1
+# [DRV_PRE]     2
+# [DRV_TRRD]     1
+# [DRV_TX_IDLE]     1
+# [DRV_TX_MRS]     1
+# [DRV_TX_READ]     6
+# [DRV_TX_WRITE]     6
+# [DRV_WRITE_NEG]    12
+# [DRV_WRITE_NO_AP]     6
+# [DRV_WRITE_POS]    12
+# [EMRS_MRS]     1
+# [MON_ACTIVATE]     2
+# [MON_MRS]     3
+# [MON_PRECHARGE]     6
+# [MON_READ]     6
+# [MON_READ_DATA]    24
+# [MON_WRITE]     6
+# [MON_write_DATA]    24
+# [MRS_ACT]     2
+# [MRS_PRE]     1
+# [PRE_AR]     4
+# [Questa UVM]     2
+# [RNTST]     1
+# [SCB_ACT]     2
+# [SCB_MRS]     3
+# [SCB_PASS]    24
+# [SCB_PRE]     2
+# [SCB_PREALL]     4
+# [SCB_READ]     6
+# [SCB_WRITE]    24
+# [SEQ_ACT]     2
+# [SEQ_MRS]     1
+# [SEQ_PRE]     2
+# [SEQ_RD_DATA]     6
+# [SEQ_READ]     2
+# [SEQ_START]     1
+# [SEQ_WRITE]     2
+# [SEQ_WR_DATA]     6
+# [TEST_DONE]     1
+# [TMRD_CHECK]     3
+# [UVMTOP]     1
+# [act_wr]     2
+# [ar_act]     1
+# [rd_data]     6
+# [wr_data]     6
+# [wt_rd]     6
+# ** Note: $finish    : C:/questasim64_2025.2_1/win64/../verilog_src/uvm-1.1d/src/base/uvm_root.svh(430)
+#    Time: 3255150 ps  Iteration: 54  Instance: /DDR_top
+# End time: 16:04:27 on Jul 30,2026, Elapsed time: 0:00:12
+# Errors: 0, Warnings: 1

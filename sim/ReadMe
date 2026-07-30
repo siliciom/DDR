@@ -1,0 +1,3 @@
+* In the package, the file hierarchy needs to be updated so that all files are placed in their respective locations. 
+* The run.do and regression.do scripts currently support only Windows PowerShell. 
+* If you intend to run them using any other tool or shell, the scripts must be modified accordingly.

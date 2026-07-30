@@ -1,0 +1,17 @@
+BEGIN 3:DDR_interface:fast__1:work
+    dqs :  1:DDR_pkg:fast:work
+END 
+BEGIN 3:DDR_interface:fast__2:work
+    dqs :  1:DDR_top:fast:work
+    cs :  1:DDR_top:fast:work
+    dm :  1:DDR_top:fast:work
+    cas :  1:DDR_top:fast:work
+    ba :  1:DDR_top:fast:work
+    ck_t :  1:DDR_top:fast:work
+    dq :  1:DDR_top:fast:work
+    cke :  1:DDR_top:fast:work
+    ras :  1:DDR_top:fast:work
+    we :  1:DDR_top:fast:work
+    addr :  1:DDR_top:fast:work
+    ck_c :  1:DDR_top:fast:work
+END 
